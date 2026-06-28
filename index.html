@@ -1,21 +1,44 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fee Ease Kashmir</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
 
-  <body>
-    <header>
-      <button id="parentButton">Parent</button>
-      <button id="adminButton">Admin</button>
-    </header>
-    <main>
-      <section id="parentDashboard">Parent Dashboard</section>
-      <section id="adminDashboard">Admin Dashboard</section>
-    </main>
-    <script src="script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fee Ease Kashmir</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header>
+    <button id="parentButton">Parent</button>
+    <button id="adminButton">Admin</button>
+  </header>
+
+  <main>
+    <section id="parentDashboard">
+      <div class="student-select-menu">
+        <label for="studentMenu">Select Student:</label>
+
+        <select name="studentMenu" id="studentSelect">
+        </select>
+      </div>
+
+      <div class="dashboardContainer">
+        <label for="span">Total Fees Owned:</label>
+        <span id="totalOwned">0</span>
+
+        <label for="span">Total Fees Paid:</label>
+        <span id="totalPaid">0</span>
+
+
+        <label for="span">Net Balance Due:</label>
+        <span id="netBalanceDue">0</span>
+      </div>
+    </section>
+
+    <section id="adminDashboard">Admin Dashboard</section>
+  </main>
+  <script src="script.js"></script>
+</body>
+
 </html>
