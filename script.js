@@ -2,113 +2,108 @@ const parentButton = document.getElementById("parentButton");
 const adminButton = document.getElementById("adminButton");
 const parentDashboard = document.getElementById("parentDashboard");
 const adminDashboard = document.getElementById("adminDashboard");
+const parentDropdown = document.getElementById("parentDropdown");
+const studentDropdown = document.getElementById("studentDropdown");
 
-//section 1 parent elements
-const studentSelect = document.getElementById("studentSelect");
-let totalOwned = document.getElementById("totalOwned");
-let totalPaid = document.getElementById("totalPaid");
-let netBalanceDue = document.getElementById("netBalanceDue");
-
-//Active parent by default
-let activeParentId = "P1";
-
-//by default we hide the admin dashboard
-adminDashboard.classList.add("hidden");
-
-//Arrays we store inside them if our local storage has any data inside it then show that if not then fall back to dummy data
-let parents = JSON.parse(localStorage.getItem("parents")) || [
-  { id: "P1", name: "Shabir Ahmad" },
-  { id: "P2", name: "Tariq Ahmad" },
+let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
+  { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
+  { studentName: "Mehnan", studentId: "S2", connectingId: "P2" },
+  { studentName: "Anees", studentId: "S3", connectingId: "P3" },
+  { studentName: "Sahil", studentId: "S4", connectingId: "P4" },
+  { studentName: "Xahid", studentId: "S5", connectingId: "P5" },
+  { studentName: "Moomin", studentId: "S6", connectingId: "P5" },
 ];
-
-let students = JSON.parse(localStorage.getItem("students")) || [
-  { id: "S1", name: "Anees", parentId: "P1" },
-  { id: "S2", name: "Mehnan", parentId: "P1" },
-  { id: "S3", name: "Mehnan", parentId: "P2" },
+let ParentsArray = JSON.parse(localStorage.getItem("storedParentsArray")) || [
+  { parentName: "Quyoom", parentId: "P1" },
+  { parentName: "Mukhtar", parentId: "P2" },
+  { parentName: "Maqbool", parentId: "P3" },
+  { parentName: "Rafiq", parentId: "P4" },
+  { parentName: "Akbar", parentId: "P5" },
 ];
-
-let studentfees = JSON.parse(localStorage.getItem("studentfees")) || [
+let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
   {
-    studentID: "S1",
-    fees: 1505550,
+    studentFeesConnectingID: "S1",
+    fees: 1500,
     month: "June",
     feesType: "Tution",
     feesId: "F1",
   },
   {
-    studentID: "S2",
+    studentFeesConnectingID: "S2",
     fees: 1500,
     month: "June",
     feesType: "Tution",
     feesId: "F2",
   },
   {
-    studentID: "S3",
+    studentFeesConnectingID: "S3",
     fees: 1500,
     month: "June",
     feesType: "Tution",
     feesId: "F3",
   },
+  {
+    studentFeesConnectingID: "S4",
+    fees: 1500,
+    month: "June",
+    feesType: "Tution",
+    feesId: "F4",
+  },
+  {
+    studentFeesConnectingID: "S5",
+    fees: 1500,
+    month: "June",
+    feesType: "Tution",
+    feesId: "F5",
+  },
+  {
+    studentFeesConnectingID: "S6",
+    fees: 1500,
+    month: "June",
+    feesType: "Tution",
+    feesId: "F6",
+  },
 ];
+let TransactionArray =
+  JSON.parse(localStorage.getItem("storedTransactionArray")) || [];
 
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-
-// This function stringfies the above arrays and saves them into local storage
 function saveData() {
-  localStorage.setItem("parents", JSON.stringify(parents));
-  localStorage.setItem("students", JSON.stringify(students));
-  localStorage.setItem("studentfees", JSON.stringify(studentfees));
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-}
-
-// Function for loading the students in parent dashboard
-function loadStudentDropdown() {
-  const activeStudent = students.filter(
-    (elements) => elements.parentId === activeParentId,
+  localStorage.setItem("storedStudentsArray", JSON.stringify(StudentsArray));
+  localStorage.setItem("storedParentsArray", JSON.stringify(ParentsArray));
+  localStorage.setItem("storedFeesArray", JSON.stringify(FeesArray));
+  localStorage.setItem(
+    "storedTransactionArray",
+    JSON.stringify(TransactionArray),
   );
-  activeStudent.forEach((student) => {
-    const optionElement = document.createElement("option");
-    optionElement.value = student.id;
-    optionElement.textContent = student.name;
-    studentSelect.appendChild(optionElement);
-  });
-}
-loadStudentDropdown();
-
-//Filter function for showing what each student has paid owns and their net balance
-
-function updateBalances() {
-  let balanceOwned = 0;
-  let balancePaid = 0;
-
-  const selectedStudentId = studentSelect.value;
-  studentfees.forEach((feeItem) => {
-    if (feeItem.studentID === selectedStudentId) {
-      balanceOwned = balanceOwned + feeItem.fees;
-    }
-  });
-
-  transactions.forEach((transactionItem) => {
-    if (transactionItem.studentID === selectedStudentId) {
-      balancePaid = balancePaid + transactionItem.paid;
-    }
-  });
-
-  let balanceDue = balanceOwned - balancePaid;
-
-  totalOwned.textContent = balanceOwned;
-  totalPaid.textContent = balancePaid;
-  netBalanceDue.textContent = balanceDue;
 }
 
-updateBalances();
-studentSelect.addEventListener("change", updateBalances);
+ParentsArray.forEach((parent) => {
+  const parentNameOption = document.createElement("option");
+  parentNameOption.textContent = parent.parentName;
+  parentNameOption.value = parent.parentId;
+  parentDropdown.appendChild(parentNameOption);
+});
 
-//These buttons show whatever button we click its dashboard and hide the other one
+parentDropdown.addEventListener("click", function (e) {
+  let activeSelectedStudent = "";
+  activeSelectedStudent = e.target.value;
+
+  StudentsArray.filter((student) => {
+    if (student.connectingId === activeSelectedStudent) {
+      const studentNameOption = document.createElement("option");
+      studentNameOption.textContent = student.studentName;
+      studentDropdown.appendChild(studentNameOption);
+    }
+  });
+});
+
+// By default it hides the admin dashboard and when we click parent or admin dashboard one hides and one shows dinamically
+adminDashboard.classList.add("hidden");
 parentButton.addEventListener("click", function () {
   adminDashboard.classList.add("hidden");
   parentDashboard.classList.remove("hidden");
 });
+
 adminButton.addEventListener("click", function () {
   parentDashboard.classList.add("hidden");
   adminDashboard.classList.remove("hidden");

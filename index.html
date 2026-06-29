@@ -1,44 +1,62 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fee Ease Kashmir</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fee Ease Kashmir</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <body>
+    <header>
+      <button id="parentButton">Parent</button>
+      <button id="adminButton">Admin</button>
+    </header>
 
-<body>
-  <header>
-    <button id="parentButton">Parent</button>
-    <button id="adminButton">Admin</button>
-  </header>
+    <main>
+      
+      <section id="parentDashboard">
+        <div class="parent-dropdown-container">
+          <label for="parentDropdown">Select Parent</label>
+          <select name="parentDropdown" id="parentDropdown"></select>
+        </div>
 
-  <main>
-    <section id="parentDashboard">
-      <div class="student-select-menu">
-        <label for="studentMenu">Select Student:</label>
+        <div class="student-dropdown-container">
+          <label for="studentDropdown">Select Student</label>
+          <select name="studentDropdown" id="studentDropdown"></select>
+        </div>
 
-        <select name="studentMenu" id="studentSelect">
-        </select>
-      </div>
+        <div class="dashboardContainer">
+          <label for="span">Total Fees Owned:</label>
+          <span id="totalOwned">0</span>
 
-      <div class="dashboardContainer">
-        <label for="span">Total Fees Owned:</label>
-        <span id="totalOwned">0</span>
+          <label for="span">Total Fees Paid:</label>
+          <span id="totalPaid">0</span>
 
-        <label for="span">Total Fees Paid:</label>
-        <span id="totalPaid">0</span>
+          <label for="span">Net Balance Due:</label>
+          <span id="netBalanceDue">0</span>
+        </div>
 
+        <div>
+          <div class="amountContainer">
+            <input
+              type="number"
+              placeholder="Enter your amount"
+              id="amountInput"
+            />
+            <button id="amountButton">Submit Amount</button>
+          </div>
 
-        <label for="span">Net Balance Due:</label>
-        <span id="netBalanceDue">0</span>
-      </div>
-    </section>
+          <div class="chunkContainer">
+            <button id="chunkAmount">500</button>
+            <button id="chunkAmount">1000</button>
+            <button id="chunkAmount">1500</button>
+          </div>
+        </div>
+      </section>
 
-    <section id="adminDashboard">Admin Dashboard</section>
-  </main>
-  <script src="script.js"></script>
-</body>
-
+      <section id="adminDashboard">Admin Dashboard</section>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
