@@ -76,26 +76,32 @@ function saveData() {
     JSON.stringify(TransactionArray),
   );
 }
+let selectedstudent = "P1";
+function loadStudents() {
+  ParentsArray.forEach((parent) => {
+    const parentNameOption = document.createElement("option");
+    parentNameOption.textContent = parent.parentName;
+    parentNameOption.value = parent.parentId;
+    parentDropdown.appendChild(parentNameOption);
+  });
+  parentDropdown.addEventListener("change", function (e) {
+    studentDropdown.textContent = "";
+    selectedstudent = e.target.value;
+    filteringStudent();
+  });
+}
 
-ParentsArray.forEach((parent) => {
-  const parentNameOption = document.createElement("option");
-  parentNameOption.textContent = parent.parentName;
-  parentNameOption.value = parent.parentId;
-  parentDropdown.appendChild(parentNameOption);
-});
-
-parentDropdown.addEventListener("click", function (e) {
-  let activeSelectedStudent = "";
-  activeSelectedStudent = e.target.value;
-
+function filteringStudent() {
   StudentsArray.filter((student) => {
-    if (student.connectingId === activeSelectedStudent) {
+    if (selectedstudent === student.connectingId) {
       const studentNameOption = document.createElement("option");
       studentNameOption.textContent = student.studentName;
       studentDropdown.appendChild(studentNameOption);
     }
   });
-});
+}
+filteringStudent();
+loadStudents();
 
 // By default it hides the admin dashboard and when we click parent or admin dashboard one hides and one shows dinamically
 adminDashboard.classList.add("hidden");
