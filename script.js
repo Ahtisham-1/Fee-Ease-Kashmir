@@ -7,6 +7,8 @@ const studentDropdown = document.getElementById("studentDropdown");
 const totalFees = document.getElementById("totalFees");
 const totalPaid = document.getElementById("totalPaid");
 const netBalanceLeft = document.getElementById("netBalanceLeft");
+const amountInput = document.getElementById("amountInput");
+const amountButton = document.getElementById("amountButton");
 
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
@@ -117,16 +119,45 @@ function filteringStudent() {
 filteringStudent();
 
 function updateBalance() {
+  let counter = 0;
+  let balance = 0;
+  let paid = 0;
   totalFees.textContent = ""; //This clear total fees before showing another students fees
   FeesArray.filter((feeAmount) => {
     if (selectedStudentId === feeAmount.studentFeesConnectingID) {
       totalFees.textContent = feeAmount.fees;
+      balance = feeAmount.fees;
     }
   });
-  console.log(selectedStudentId);
+
+  TransactionArray.filter((studentTransaction) => {
+    if (selectedStudentId === studentTransaction.studentId) {
+      counter += studentTransaction.paidAmount;
+    }
+  });
+  netBalanceLeft.textContent = balance - counter;
+  totalPaid.textContent = counter;
 }
 updateBalance();
 
+function makePayment() {
+  let inputPaymentAmount = Number(amountInput.value);
+  let newTransactionObject = {
+    studentId: selectedStudentId,
+    paidAmount: inputPaymentAmount,
+  };
+
+  TransactionArray.push(newTransactionObject);
+  saveData();
+  updateBalance();
+  amountInput.value = "";
+}
+
+amountButton.addEventListener("click", function () {
+  makePayment();
+});
+
+//This eventlistner gives us the value of current selected students id
 studentDropdown.addEventListener("change", function (e) {
   selectedStudentId = e.target.value;
   updateBalance();
