@@ -142,14 +142,25 @@ updateBalance();
 
 function makePayment() {
   let inputPaymentAmount = Number(amountInput.value);
-  let newTransactionObject = {
-    studentId: selectedStudentId,
-    paidAmount: inputPaymentAmount,
-  };
+  let remainBalance = Number(netBalanceLeft.textContent);
 
-  TransactionArray.push(newTransactionObject);
-  saveData();
-  updateBalance();
+  if (
+    isNaN(inputPaymentAmount) ||
+    inputPaymentAmount <= 0 ||
+    inputPaymentAmount > remainBalance
+  ) {
+    window.alert(
+      "whatever you wrote is either not valid numbers or is too High than the fee amount you own",
+    );
+  } else {
+    let newTransactionObject = {
+      studentId: selectedStudentId,
+      paidAmount: inputPaymentAmount,
+    };
+    TransactionArray.push(newTransactionObject);
+    saveData();
+    updateBalance();
+  }
   amountInput.value = "";
 }
 
