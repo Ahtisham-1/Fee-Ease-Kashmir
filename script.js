@@ -9,6 +9,12 @@ const totalPaid = document.getElementById("totalPaid");
 const netBalanceLeft = document.getElementById("netBalanceLeft");
 const amountInput = document.getElementById("amountInput");
 const amountButton = document.getElementById("amountButton");
+const chunkAmountFive = document.getElementById("chunkAmountFive");
+const chunkAmountThousand = document.getElementById("chunkAmountThousand");
+const chunkAmountFifteenHundred = document.getElementById(
+  "chunkAmountFifteenHundred",
+);
+const chunkContainer = document.getElementById("chunkContainer");
 
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
@@ -172,6 +178,14 @@ amountButton.addEventListener("click", function () {
 studentDropdown.addEventListener("change", function (e) {
   selectedStudentId = e.target.value;
   updateBalance();
+});
+
+chunkContainer.addEventListener("click", function (e) {
+  if (e.target.tagName === "BUTTON") {
+    let tagValue = e.target.textContent;
+    amountInput.value = tagValue;
+    makePayment();
+  }
 });
 
 // By default it hides the admin dashboard and when we click parent or admin dashboard one hides and one shows dinamically
