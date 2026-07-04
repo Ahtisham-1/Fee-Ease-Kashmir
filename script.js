@@ -188,7 +188,7 @@ function showTransactions() {
       };
       const paymentElement = document.createElement("li");
       paymentElement.textContent = `${new Date(studentsHistory.paymentDate).toLocaleString("en-GB", options)} || Rs ${studentsHistory.paidAmount}`;
-      paymentHistoryList.appendChild(paymentElement);
+      paymentHistoryList.prepend(paymentElement);
     }
   });
 }
