@@ -16,6 +16,10 @@ const chunkAmountFifteenHundred = document.getElementById(
 );
 const chunkContainer = document.getElementById("chunkContainer");
 const paymentHistoryList = document.getElementById("paymentHistoryList");
+//-------------------------------------------------------------------//
+const todayCollection = document.getElementById("todayCollection");
+const monthlyCollection = document.getElementById("monthlyCollection");
+const yearlyCollection = document.getElementById("yearlyCollection");
 
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
@@ -178,7 +182,7 @@ function showTransactions() {
 
   TransactionArray.filter((studentsHistory) => {
     if (selectedStudentId === studentsHistory.studentId) {
-        new Date(Number);
+      new Date(Number);
       const options = {
         month: "short",
         day: "numeric",
@@ -225,4 +229,38 @@ parentButton.addEventListener("click", function () {
 adminButton.addEventListener("click", function () {
   parentDashboard.classList.add("hidden");
   adminDashboard.classList.remove("hidden");
+  calculateCollections();
 });
+
+//--------------------------------------------------//
+//ADMIN SECTION
+
+function calculateCollections() {
+  let todaySum = 0;
+  let monthlySum = 0;
+  let yearlySum = 0;
+  TransactionArray.forEach((item) => {
+    let txDate = new Date(item.paymentDate);
+    let today = new Date();
+    if (
+      txDate.getDate() === today.getDate() &&
+      txDate.getMonth() === today.getMonth() &&
+      txDate.getFullYear() === today.getFullYear()
+    ) {
+      todaySum += item.paidAmount;
+    }
+    if (
+      txDate.getMonth() === today.getMonth() &&
+      txDate.getFullYear() === today.getFullYear()
+    ) {
+      monthlySum += item.paidAmount;
+    }
+    if (txDate.getFullYear() === today.getFullYear()) {
+      yearlySum += item.paidAmount;
+    }
+  });
+  todayCollection.textContent = todaySum;
+  monthlyCollection.textContent = monthlySum;
+  yearlyCollection.textContent = yearlySum;
+}
+calculateCollections();
