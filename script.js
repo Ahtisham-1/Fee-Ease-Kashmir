@@ -15,6 +15,7 @@ const chunkAmountFifteenHundred = document.getElementById(
   "chunkAmountFifteenHundred",
 );
 const chunkContainer = document.getElementById("chunkContainer");
+const paymentHistoryList = document.getElementById("paymentHistoryList");
 
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
@@ -107,6 +108,7 @@ function loadStudents() {
     filteringStudent();
     selectedStudentId = studentDropdown.value;
     updateBalance();
+    showTransactions();
   });
 }
 loadStudents();
@@ -162,6 +164,7 @@ function makePayment() {
     let newTransactionObject = {
       studentId: selectedStudentId,
       paidAmount: inputPaymentAmount,
+      paymentDate: Date.now(),
     };
     TransactionArray.push(newTransactionObject);
     saveData();
@@ -170,14 +173,37 @@ function makePayment() {
   amountInput.value = "";
 }
 
+function showTransactions() {
+  paymentHistoryList.textContent = "";
+
+  TransactionArray.filter((studentsHistory) => {
+    if (selectedStudentId === studentsHistory.studentId) {
+        new Date(Number);
+      const options = {
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      };
+      const paymentElement = document.createElement("li");
+      paymentElement.textContent = `${new Date(studentsHistory.paymentDate).toLocaleString("en-GB", options)} || Rs ${studentsHistory.paidAmount}`;
+      paymentHistoryList.appendChild(paymentElement);
+    }
+  });
+}
+showTransactions(); // This one calls the history when we open the page first time
+
 amountButton.addEventListener("click", function () {
   makePayment();
+  showTransactions(); // This one shows the transactions history when we manually enter the amount and submit that
 });
 
 //This eventlistner gives us the value of current selected students id
 studentDropdown.addEventListener("change", function (e) {
   selectedStudentId = e.target.value;
   updateBalance();
+  showTransactions(); //This one shows the transaction list of the changed students
 });
 
 chunkContainer.addEventListener("click", function (e) {
@@ -185,6 +211,7 @@ chunkContainer.addEventListener("click", function (e) {
     let tagValue = e.target.textContent;
     amountInput.value = tagValue;
     makePayment();
+    showTransactions(); // This one shows the chunk buttons transaction when we click them
   }
 });
 
