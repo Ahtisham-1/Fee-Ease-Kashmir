@@ -24,38 +24,39 @@ Fee-Ease Kashmir solves both problems at once.
 
 ## Parent Portal
 
-# Feature
+1. Log in and instantly see all your children's profiles
+2. See the Total Fees, Total Paid, and exact Remaining Balance for each child
+3. Pay any amount, any time, from anywhere — Rs 200 today, Rs 300 next week, even Rs 10
+4. View a complete transaction history with exact dates and amounts
 
-1 Log in and instantly see all your children's profiles
-2 See the Total Fees, Total Paid, and exact Remaining Balance for each child
-3 Pay any amount, any time, from anywhere — Rs 200 today, Rs 300 next week, even Rs 10
-4 View a complete transaction history with exact dates and amounts
+## Admin Portal
 
-## ## Admin Portal
-
-# Feature
-
-5 Revenue Dashboard — Collections for today, this month, and this year
-6 Defaulter List — Every student with a pending balance and their parent's name
+5. Revenue Dashboard — Collections for today, this month, and this year
+6. Defaulter List — Every student with a pending balance and their parent's name
 
 ## Tech Stack
 
-Current Phase (Phase 1)
-Technology Purpose
-HTML Structure
-CSS Styling
-Vanilla JavaScript All application logic
-LocalStorage Client-side data persistence
-Coming in Future Phases
+## Current Phase (Phase 1)
+
+| Technology | Purpose |
+|------------|---------|
+| HTML | Structure |
+| CSS | Styling |
+| Vanilla JavaScript | All application logic |
+| LocalStorage | Client-side data persistence |
+
+## Coming in Future Phases
+
 TypeScript → React / Next.js → SQL Database → Production Deployment
 
 ## Live Demo
 
 Note: This is a Phase 1 prototype. Data is stored in your browser only.
 
-View Live Demo → fee-ease-kashmir.vercel.app
+[View Live Demo → fee-ease-kashmir.vercel.app](https://fee-ease-kashmir.vercel.app/)
 
-GitHub Repository
-github.com/Ahtisham-1/Fee-Ease-Kashmir
+## GitHub Repository
+
+[github.com/Ahtisham-1/Fee-Ease-Kashmir](https://github.com/Ahtisham-1/Fee-Ease-Kashmir)
 
 Built with purpose. More updates coming soon.
