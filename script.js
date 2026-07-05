@@ -59,35 +59,35 @@ let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
   },
   {
     studentFeesConnectingID: "S2",
-    fees: 2222,
+    fees: 2000,
     month: "June",
     feesType: "Tution",
     feesId: "F2",
   },
   {
     studentFeesConnectingID: "S3",
-    fees: 356,
+    fees: 3000,
     month: "June",
     feesType: "Tution",
     feesId: "F3",
   },
   {
     studentFeesConnectingID: "S4",
-    fees: 34563,
+    fees: 4000,
     month: "June",
     feesType: "Tution",
     feesId: "F4",
   },
   {
     studentFeesConnectingID: "S5",
-    fees: 644,
+    fees: 5000,
     month: "June",
     feesType: "Tution",
     feesId: "F5",
   },
   {
     studentFeesConnectingID: "S6",
-    fees: 1500,
+    fees: 6000,
     month: "June",
     feesType: "Tution",
     feesId: "F6",
@@ -222,7 +222,7 @@ function showTransactions() {
 // ============================================
 // SECTION 6: ADMIN DASHBOARD FUNCTIONS
 // ============================================
-
+//
 function calculateCollections() {
   let todaySum = 0;
   let monthlySum = 0;
@@ -253,6 +253,7 @@ function calculateCollections() {
 }
 
 function studentsRemainingFees() {
+  studentsPendingFeesList.innerHTML = "";
   let allStudentsFees = 0;
 
   FeesArray.forEach((student) => {
@@ -278,8 +279,6 @@ function studentsRemainingFees() {
     }
   });
 }
-
-studentsRemainingFees();
 
 // ============================================
 // SECTION 7: EVENT LISTENERS
@@ -316,6 +315,7 @@ adminButton.addEventListener("click", function () {
   parentDashboard.classList.add("hidden");
   adminDashboard.classList.remove("hidden");
   calculateCollections();
+  studentsRemainingFees();
 });
 
 // ============================================
@@ -327,3 +327,4 @@ filteringStudent();
 updateBalance();
 showTransactions();
 calculateCollections();
+studentsRemainingFees();
