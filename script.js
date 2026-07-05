@@ -1,3 +1,8 @@
+// ============================================
+// SECTION 1: DOM SELECTIONS
+// ============================================
+
+// Parent Dashboard Elements
 const parentButton = document.getElementById("parentButton");
 const adminButton = document.getElementById("adminButton");
 const parentDashboard = document.getElementById("parentDashboard");
@@ -16,10 +21,18 @@ const chunkAmountFifteenHundred = document.getElementById(
 );
 const chunkContainer = document.getElementById("chunkContainer");
 const paymentHistoryList = document.getElementById("paymentHistoryList");
-//-------------------------------------------------------------------//
+
+// Admin Dashboard Elements
 const todayCollection = document.getElementById("todayCollection");
 const monthlyCollection = document.getElementById("monthlyCollection");
 const yearlyCollection = document.getElementById("yearlyCollection");
+const studentsPendingFeesList = document.getElementById(
+  "studentsPendingFeesList",
+);
+
+// ============================================
+// SECTION 2: DATA ARRAYS
+// ============================================
 
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
@@ -83,6 +96,17 @@ let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
 let TransactionArray =
   JSON.parse(localStorage.getItem("storedTransactionArray")) || [];
 
+// ============================================
+// SECTION 3: GLOBAL STATE VARIABLES
+// ============================================
+
+let selectedParentId = "P1";
+let selectedStudentId = "S1";
+
+// ============================================
+// SECTION 4: UTILITY FUNCTIONS
+// ============================================
+
 //This function stores the data into local storage and stringifies them
 function saveData() {
   localStorage.setItem("storedStudentsArray", JSON.stringify(StudentsArray));
@@ -94,8 +118,9 @@ function saveData() {
   );
 }
 
-let selectedParentId = "P1";
-let selectedStudentId = "S1";
+// ============================================
+// SECTION 5: PARENT DASHBOARD FUNCTIONS
+// ============================================
 
 //This function loads the parents option on the page
 function loadStudents() {
@@ -115,7 +140,6 @@ function loadStudents() {
     showTransactions();
   });
 }
-loadStudents();
 
 //This function filters the students whoose ids match with parentsId
 function filteringStudent() {
@@ -128,13 +152,12 @@ function filteringStudent() {
     }
   });
 }
-filteringStudent();
 
 function updateBalance() {
   let counter = 0;
   let balance = 0;
   let paid = 0;
-  totalFees.textContent = ""; //This clear total fees before showing another students fees
+  totalFees.textContent = "";
   FeesArray.filter((feeAmount) => {
     if (selectedStudentId === feeAmount.studentFeesConnectingID) {
       totalFees.textContent = feeAmount.fees;
@@ -150,7 +173,6 @@ function updateBalance() {
   netBalanceLeft.textContent = balance - counter;
   totalPaid.textContent = counter;
 }
-updateBalance();
 
 function makePayment() {
   let inputPaymentAmount = Number(amountInput.value);
@@ -196,44 +218,10 @@ function showTransactions() {
     }
   });
 }
-showTransactions(); // This one calls the history when we open the page first time
 
-amountButton.addEventListener("click", function () {
-  makePayment();
-  showTransactions(); // This one shows the transactions history when we manually enter the amount and submit that
-});
-
-//This eventlistner gives us the value of current selected students id
-studentDropdown.addEventListener("change", function (e) {
-  selectedStudentId = e.target.value;
-  updateBalance();
-  showTransactions(); //This one shows the transaction list of the changed students
-});
-
-chunkContainer.addEventListener("click", function (e) {
-  if (e.target.tagName === "BUTTON") {
-    let tagValue = e.target.textContent;
-    amountInput.value = tagValue;
-    makePayment();
-    showTransactions(); // This one shows the chunk buttons transaction when we click them
-  }
-});
-
-// By default it hides the admin dashboard and when we click parent or admin dashboard one hides and one shows dinamically
-adminDashboard.classList.add("hidden");
-parentButton.addEventListener("click", function () {
-  adminDashboard.classList.add("hidden");
-  parentDashboard.classList.remove("hidden");
-});
-
-adminButton.addEventListener("click", function () {
-  parentDashboard.classList.add("hidden");
-  adminDashboard.classList.remove("hidden");
-  calculateCollections();
-});
-
-//--------------------------------------------------//
-//ADMIN SECTION
+// ============================================
+// SECTION 6: ADMIN DASHBOARD FUNCTIONS
+// ============================================
 
 function calculateCollections() {
   let todaySum = 0;
@@ -263,4 +251,79 @@ function calculateCollections() {
   monthlyCollection.textContent = monthlySum;
   yearlyCollection.textContent = yearlySum;
 }
+
+function studentsRemainingFees() {
+  let allStudentsFees = 0;
+
+  FeesArray.forEach((student) => {
+    let allStudentsPaid = 0;
+    TransactionArray.filter((studentPending) => {
+      if (student.studentFeesConnectingID === studentPending.studentId) {
+        allStudentsPaid += studentPending.paidAmount;
+      }
+    });
+    allStudentsFees = student.fees - allStudentsPaid;
+    if (allStudentsFees > 0) {
+      StudentsArray.find((userName) => {
+        if (userName.studentId === student.studentFeesConnectingID) {
+          ParentsArray.find((userParentName) => {
+            if (userName.connectingId === userParentName.parentId) {
+              let newElement = document.createElement("li");
+              newElement.textContent = `${userName.studentName} ${userParentName.parentName}  Pending:${allStudentsFees}`;
+              studentsPendingFeesList.appendChild(newElement);
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
+studentsRemainingFees();
+
+// ============================================
+// SECTION 7: EVENT LISTENERS
+// ============================================
+
+amountButton.addEventListener("click", function () {
+  makePayment();
+  showTransactions();
+});
+
+studentDropdown.addEventListener("change", function (e) {
+  selectedStudentId = e.target.value;
+  updateBalance();
+  showTransactions();
+});
+
+chunkContainer.addEventListener("click", function (e) {
+  if (e.target.tagName === "BUTTON") {
+    let tagValue = e.target.textContent;
+    amountInput.value = tagValue;
+    makePayment();
+    showTransactions();
+  }
+});
+
+// Dashboard Toggle
+adminDashboard.classList.add("hidden");
+parentButton.addEventListener("click", function () {
+  adminDashboard.classList.add("hidden");
+  parentDashboard.classList.remove("hidden");
+});
+
+adminButton.addEventListener("click", function () {
+  parentDashboard.classList.add("hidden");
+  adminDashboard.classList.remove("hidden");
+  calculateCollections();
+});
+
+// ============================================
+// SECTION 8: INITIAL FUNCTION CALLS
+// ============================================
+
+loadStudents();
+filteringStudent();
+updateBalance();
+showTransactions();
 calculateCollections();
