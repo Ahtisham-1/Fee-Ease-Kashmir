@@ -21,6 +21,7 @@ const chunkAmountFifteenHundred = document.getElementById(
 );
 const chunkContainer = document.getElementById("chunkContainer");
 const paymentHistoryList = document.getElementById("paymentHistoryList");
+const paidByMonth = document.getElementById("paidByMonth");
 
 // Admin Dashboard Elements
 const todayCollection = document.getElementById("todayCollection");
@@ -58,6 +59,13 @@ let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
     feesId: "F1",
   },
   {
+    studentFeesConnectingID: "S1",
+    fees: 1500,
+    month: "July",
+    feesType: "Tution",
+    feesId: "F7",
+  },
+  {
     studentFeesConnectingID: "S2",
     fees: 2000,
     month: "June",
@@ -65,11 +73,25 @@ let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
     feesId: "F2",
   },
   {
+    studentFeesConnectingID: "S2",
+    fees: 2000,
+    month: "July",
+    feesType: "Tution",
+    feesId: "F8",
+  },
+  {
     studentFeesConnectingID: "S3",
     fees: 3000,
     month: "June",
     feesType: "Tution",
     feesId: "F3",
+  },
+  {
+    studentFeesConnectingID: "S3",
+    fees: 3000,
+    month: "July",
+    feesType: "Tution",
+    feesId: "F9",
   },
   {
     studentFeesConnectingID: "S4",
@@ -218,6 +240,8 @@ function showTransactions() {
     }
   });
 }
+
+
 
 // ============================================
 // SECTION 6: ADMIN DASHBOARD FUNCTIONS
