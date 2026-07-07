@@ -30,6 +30,8 @@ const yearlyCollection = document.getElementById("yearlyCollection");
 const studentsPendingFeesList = document.getElementById(
   "studentsPendingFeesList",
 );
+const addParentInput = document.getElementById("addParentInput");
+const addParentButton = document.getElementById("addParentButton");
 
 // ============================================
 // SECTION 2: DATA ARRAYS
@@ -330,6 +332,27 @@ function studentsRemainingFees() {
   });
 }
 
+function addParentsFunction() {
+  let newParentName = addParentInput.value;
+  if (addParentInput.value === "") {
+    alert("Invalid");
+  } else {
+    let parentNewDropdown = document.createElement("option");
+    parentNewDropdown.textContent = newParentName;
+    parentNewDropdown.value = `P${ParentsArray.length + 1}`;
+    parentDropdown.appendChild(parentNewDropdown);
+
+    let newParentObject = {
+      parentName: newParentName,
+      parentId: parentNewDropdown.value,
+    };
+    console.log(newParentObject.parentId);
+    ParentsArray.push(newParentObject);
+    saveData();
+  }
+  addParentInput.value = "";
+}
+
 // ============================================
 // SECTION 7: EVENT LISTENERS
 // ============================================
@@ -352,6 +375,10 @@ chunkContainer.addEventListener("click", function (e) {
     makePayment();
     showTransactions();
   }
+});
+
+addParentButton.addEventListener("click", function () {
+  addParentsFunction();
 });
 
 // Dashboard Toggle
