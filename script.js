@@ -34,6 +34,9 @@ const addParentInput = document.getElementById("addParentInput");
 const addParentButton = document.getElementById("addParentButton");
 const addStudentsInput = document.getElementById("addStudentsInput");
 const addStudentsButton = document.getElementById("addStudentsButton");
+const assignFeesInput = document.getElementById("assignFeesInput");
+const assignMonthInput = document.getElementById("assignMonthInput");
+const addFeesMonthButton = document.getElementById("addFeesMonthButton");
 
 // ============================================
 // SECTION 2: DATA ARRAYS
@@ -377,6 +380,25 @@ function addStudentFunction() {
   addStudentsInput.value = "";
 }
 
+function assignFeesFunction() {
+  let addingFees = Number(assignFeesInput.value);
+  let addingMonth = assignMonthInput.value;
+  StudentsArray.forEach((student) => {
+    let feesMonthObject = {
+      studentFeesConnectingID: student.studentId,
+      fees: addingFees,
+      month: addingMonth,
+      feesType: "Tution",
+      feesId: `F${FeesArray.length + 1}`,
+    };
+    FeesArray.push(feesMonthObject);
+    saveData();
+  });
+  assignFeesInput.value = "";
+  assignMonthInput.value = "";
+  showMonthlyBreakdown();
+}
+
 // ============================================
 // SECTION 7: EVENT LISTENERS
 // ============================================
@@ -406,6 +428,10 @@ addParentButton.addEventListener("click", function () {
 });
 addStudentsButton.addEventListener("click", function () {
   addStudentFunction();
+});
+
+addFeesMonthButton.addEventListener("click", function () {
+  assignFeesFunction();
 });
 
 // Dashboard Toggle
