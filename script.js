@@ -182,8 +182,7 @@ function updateBalance() {
   totalFees.textContent = "";
   FeesArray.filter((feeAmount) => {
     if (selectedStudentId === feeAmount.studentFeesConnectingID) {
-      totalFees.textContent = feeAmount.fees;
-      balance = feeAmount.fees;
+      balance += feeAmount.fees;
     }
   });
 
@@ -192,6 +191,7 @@ function updateBalance() {
       counter += studentTransaction.paidAmount;
     }
   });
+  totalFees.textContent = balance;
   netBalanceLeft.textContent = balance - counter;
   totalPaid.textContent = counter;
 }
@@ -239,10 +239,35 @@ function showTransactions() {
       paymentHistoryList.prepend(paymentElement);
     }
   });
+  showMonthlyBreakdown();
 }
 
+function showMonthlyBreakdown() {
+  paidByMonth.textContent = "";
+  let newCounter = 0;
+  TransactionArray.filter((studentTransaction) => {
+    if (selectedStudentId === studentTransaction.studentId) {
+      newCounter += studentTransaction.paidAmount;
+    }
+  });
+  FeesArray.filter((student) => {
+    if (selectedStudentId === student.studentFeesConnectingID) {
+      const newListElement = document.createElement("li");
+      newListElement.textContent = `${student.month} ${student.fees} ${newCounter}`;
+      paidByMonth.appendChild(newListElement);
+      if (newCounter >= student.fees) {
+        newListElement.textContent = "Paid";
+        newCounter = newCounter - student.fees;
+      } else {
+        let latestAmount = student.fees - newCounter;
+        newCounter = 0;
 
-
+        newListElement.textContent = `${student.month} Pending:${latestAmount}`;
+      }
+    }
+  });
+}
+showMonthlyBreakdown();
 // ============================================
 // SECTION 6: ADMIN DASHBOARD FUNCTIONS
 // ============================================
@@ -278,26 +303,27 @@ function calculateCollections() {
 
 function studentsRemainingFees() {
   studentsPendingFeesList.innerHTML = "";
-  let allStudentsFees = 0;
 
-  FeesArray.forEach((student) => {
+  StudentsArray.forEach((student) => {
+    let allStudentsFees = 0;
     let allStudentsPaid = 0;
     TransactionArray.filter((studentPending) => {
-      if (student.studentFeesConnectingID === studentPending.studentId) {
+      if (student.studentId === studentPending.studentId) {
         allStudentsPaid += studentPending.paidAmount;
       }
     });
-    allStudentsFees = student.fees - allStudentsPaid;
-    if (allStudentsFees > 0) {
-      StudentsArray.find((userName) => {
-        if (userName.studentId === student.studentFeesConnectingID) {
-          ParentsArray.find((userParentName) => {
-            if (userName.connectingId === userParentName.parentId) {
-              let newElement = document.createElement("li");
-              newElement.textContent = `${userName.studentName} ${userParentName.parentName}  Pending:${allStudentsFees}`;
-              studentsPendingFeesList.appendChild(newElement);
-            }
-          });
+    FeesArray.forEach((feesStudent) => {
+      if (feesStudent.studentFeesConnectingID === student.studentId) {
+        allStudentsFees += feesStudent.fees;
+      }
+    });
+    let remaining = allStudentsFees - allStudentsPaid;
+    if (remaining > 0) {
+      ParentsArray.find((userParentName) => {
+        if (student.connectingId === userParentName.parentId) {
+          let newElement = document.createElement("li");
+          newElement.textContent = `${student.studentName} ${userParentName.parentName}  Pending:${remaining}`;
+          studentsPendingFeesList.appendChild(newElement);
         }
       });
     }
