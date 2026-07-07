@@ -32,6 +32,8 @@ const studentsPendingFeesList = document.getElementById(
 );
 const addParentInput = document.getElementById("addParentInput");
 const addParentButton = document.getElementById("addParentButton");
+const addStudentsInput = document.getElementById("addStudentsInput");
+const addStudentsButton = document.getElementById("addStudentsButton");
 
 // ============================================
 // SECTION 2: DATA ARRAYS
@@ -349,8 +351,30 @@ function addParentsFunction() {
     console.log(newParentObject.parentId);
     ParentsArray.push(newParentObject);
     saveData();
+    selectedParentId = newParentObject.parentId;
   }
   addParentInput.value = "";
+}
+
+function addStudentFunction() {
+  let newStudentName = addStudentsInput.value;
+  if (addStudentsInput.value === "") {
+    alert("Invalid");
+  } else {
+    let studentNewDropdown = document.createElement("option");
+    studentNewDropdown.textContent = newStudentName;
+    studentNewDropdown.value = `S${StudentsArray.length + 1}`;
+    studentDropdown.appendChild(studentNewDropdown);
+
+    let newStudentObject = {
+      studentName: newStudentName,
+      studentId: studentNewDropdown.value,
+      connectingId: selectedParentId,
+    };
+    StudentsArray.push(newStudentObject);
+    saveData();
+  }
+  addStudentsInput.value = "";
 }
 
 // ============================================
@@ -379,6 +403,9 @@ chunkContainer.addEventListener("click", function (e) {
 
 addParentButton.addEventListener("click", function () {
   addParentsFunction();
+});
+addStudentsButton.addEventListener("click", function () {
+  addStudentFunction();
 });
 
 // Dashboard Toggle
