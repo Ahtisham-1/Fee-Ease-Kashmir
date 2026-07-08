@@ -1,351 +1,647 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-.hidden {
-  display: none;
-}
+/* ============================================
+   FEE EASE KASHMIR — styles.css
+   Theme: Claude Dark (charcoal paper + terracotta ink)
+   Font: Consolas, fallback SF Pro Display / sans-serif
+   ============================================ */
 
-/* =========================================
-   VARIABLES (Modern Colorful Palette)
-   ========================================= */
 :root {
-  --bg-color: #f4f7f9; /* Very soft, cool blue-gray background */
-  --card-bg: #ffffff;
-  --text-main: #1e293b; /* Deep slate for readable text */
-  --text-muted: #64748b; /* Lighter slate for labels */
-  --primary: #4f46e5; /* Modern Indigo for main actions */
-  --primary-hover: #4338ca;
-  --border-color: #e2e8f0;
-  --radius: 8px;
-  --radius-lg: 12px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  /* Palette — dark */
+  --paper: #1f1e1d;
+  --paper-raised: #2a2926;
+  --paper-sunken: #181715;
+  --line: #3d3b36;
+  --ink: #f5f4ef;
+  --ink-soft: #c9c4b6;
+  --clay: #d97757;
+  --clay-dark: #e2916f;
+  --clay-tint: rgba(217, 119, 87, 0.16);
+  --moss: #8caa78;
+  --moss-tint: rgba(140, 170, 120, 0.14);
+
+  /* Type */
+  --font-mono: Consolas, "SF Mono", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Menlo, sans-serif;
+
+  /* Rhythm */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 36px;
 }
 
-/* =========================================
-   RESET & BASE STYLES
-   ========================================= */
 * {
   box-sizing: border-box;
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
+  background-color: var(--paper);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--line) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 15px;
   line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   min-height: 100vh;
-  padding: 24px 16px;
 }
 
 .hidden {
   display: none !important;
 }
 
-/* =========================================
-   LAYOUT & CONTAINERS
-   ========================================= */
-main {
-  width: 100%;
-  max-width: 560px;
-}
+/* ============================================
+   HEADER
+   ============================================ */
 
-section {
-  background-color: var(--card-bg);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  padding: 32px;
-  margin-bottom: 24px;
-}
-
-/* =========================================
-   HEADER & TOGGLE BUTTONS
-   ========================================= */
 header {
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  width: 100%;
-  max-width: 560px;
-  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--paper-raised);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-#parentButton {
-  background-color: #0ea5e9; /* Sky Blue */
-  color: white;
-  box-shadow: var(--shadow-sm);
-}
-#parentButton:hover {
-  background-color: #0284c7;
-}
-
-#adminButton {
-  background-color: #10b981; /* Emerald Green */
-  color: white;
-  box-shadow: var(--shadow-sm);
-}
-#adminButton:hover {
-  background-color: #059669;
+header::before {
+  content: "Fee Ease Kashmir";
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-right: auto;
+  color: var(--clay-dark);
+  font-size: 1.05rem;
 }
 
-/* =========================================
-   TYPOGRAPHY & LABELS
-   ========================================= */
+header button {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+header button:hover {
+  border-color: var(--clay);
+  color: var(--clay-dark);
+}
+
+header button:active {
+  transform: scale(0.97);
+}
+
+/* ============================================
+   SHARED SECTION / CARD LOOK
+   ============================================ */
+
+main {
+  padding: var(--space-4);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#parentDashboard,
+#adminDashboard {
+  background: transparent;
+}
+
+#adminDashboard {
+  padding-top: var(--space-1);
+}
+
+/* "Admin Dashboard" is plain text straight in the section (no wrapping
+   element in the HTML) — give it real heading weight instead of body text */
+#adminDashboard {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+#adminDashboard > div {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* Any first-level div inside the dashboards reads as a "card" */
+#parentDashboard > div,
+#adminDashboard > div {
+  background-color: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}
+
 label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-/* =========================================
-   FORMS, INPUTS & SELECTS
-   ========================================= */
-.parent-dropdown-container,
-.student-dropdown-container {
-  margin-bottom: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: var(--space-1);
 }
 
 select,
+input[type="text"],
 input[type="number"] {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 1rem;
   font-family: inherit;
-  color: var(--text-main);
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background-color: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  width: 100%;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 select:focus,
+input[type="text"]:focus,
 input[type="number"]:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); /* Indigo focus ring */
+  border-color: var(--clay);
+  box-shadow: 0 0 0 3px var(--clay-tint);
 }
 
-/* =========================================
-   BUTTON BASE STYLES
-   ========================================= */
 button {
   font-family: inherit;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 12px 20px;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-#amountButton {
-  background-color: var(--primary);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
-  flex-shrink: 0;
-}
-#amountButton:hover {
-  background-color: var(--primary-hover);
-}
-#amountButton:active {
-  transform: translateY(1px);
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* =========================================
-   DASHBOARD SUMMARY CARD
-   ========================================= */
+/* ============================================
+   PARENT DASHBOARD — grid: 2 sections side by side
+   ============================================ */
+
+#parentDashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "dropA dropB"
+    "balance history"
+    "payment history";
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.parent-dropdown-container {
+  grid-area: dropA;
+}
+
+.student-dropdown-container {
+  grid-area: dropB;
+}
+
 .parentDashboardContainer {
-  background-color: #f8fafc; /* Very soft slate */
-  border: 1px solid #cbd5e1;
-  border-left: 5px solid #0ea5e9; /* Blue accent line on the left */
-  padding: 20px;
-  border-radius: var(--radius);
-  margin: 28px 0;
+  grid-area: balance;
 }
+
+/* the unlabeled wrapper div holding amountContainer + chunkContainer */
+#parentDashboard > div:nth-child(4) {
+  grid-area: payment;
+}
+
+.PaymentHistoryContainer {
+  grid-area: history;
+}
+
+/* --- balance readout --- */
 
 .parentDashboardContainer label {
   display: inline-block;
-  width: 110px;
-  margin: 0;
-  color: var(--text-muted);
+  margin-bottom: 0;
 }
 
 .parentDashboardContainer span {
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--clay-dark);
+}
+
+#netBalanceLeft {
   font-size: 1.1rem;
 }
 
-.parentDashboardContainer br {
-  margin-bottom: 12px;
-  display: block;
-  content: "";
+.monthList {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--line);
 }
 
-/* Highlight specifically the Net Balance */
-#netBalanceLeft {
-  color: #e11d48; /* Rose/Red color to show money owed */
+#paidByMonth li {
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-sm);
+  background-color: var(--paper-sunken);
+  font-size: 0.85rem;
 }
 
-/* =========================================
-   PAYMENT SECTION (CHUNKS)
-   ========================================= */
+/* --- payment entry --- */
+
 .amountContainer {
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--space-2);
+}
+
+.amountContainer input {
+  flex: 1;
+}
+
+#amountButton {
+  background-color: var(--clay);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+#amountButton:hover {
+  background-color: var(--clay-dark);
 }
 
 #chunkContainer {
   display: flex;
-  gap: 10px;
-  margin-bottom: 28px;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
 }
 
-/* Colorful Quick Pay Buttons */
-#chunkAmountFive {
-  background-color: #e0f2fe; /* Soft Blue */
-  color: #0369a1;
-  border: 1px solid #bae6fd;
+#chunkContainer button {
+  flex: 1;
+  background-color: var(--paper-sunken);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
-#chunkAmountFive:hover { background-color: #bae6fd; }
 
-#chunkAmountThousand {
-  background-color: #fef3c7; /* Soft Amber/Yellow */
-  color: #b45309;
-  border: 1px solid #fde68a;
+#chunkContainer button:hover {
+  border-color: var(--clay);
+  background-color: var(--clay-tint);
+  color: var(--clay-dark);
 }
-#chunkAmountThousand:hover { background-color: #fde68a; }
 
-#chunkAmountFifteenHundred {
-  background-color: #fae8ff; /* Soft Fuchsia/Purple */
-  color: #a21caf;
-  border: 1px solid #f5d0fe;
-}
-#chunkAmountFifteenHundred:hover { background-color: #f5d0fe; }
+/* --- payment history --- */
 
-/* =========================================
-   PAYMENT HISTORY LIST
-   ========================================= */
 .PaymentHistoryContainer {
-  border-top: 1px solid var(--border-color);
-  padding-top: 24px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
 }
 
 #paymentHistoryList {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  margin-top: var(--space-2);
+  max-height: 420px;
+  overflow-y: auto;
 }
 
 #paymentHistoryList li {
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-left: 4px solid #10b981; /* Green accent showing successful payment */
-  padding: 14px 16px;
-  border-radius: var(--radius);
-  font-size: 0.95rem;
-  color: var(--text-main);
-  display: flex;
-  justify-content: space-between;
-  box-shadow: var(--shadow-sm);
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
 }
 
-/* =========================================
-   ADMIN DASHBOARD SPECIFICS
-   ========================================= */
-#adminDashboard {
-  text-align: center;
-  color: var(--text-main);
-  font-weight: 700;
-  font-size: 1.25rem;
+#paymentHistoryList li:last-child {
+  border-bottom: none;
 }
+
+/* ============================================
+   ADMIN DASHBOARD — grid: 2 columns side by side,
+   promotion card as a full-width bar at the bottom
+   ============================================ */
+
+#adminDashboard {
+  column-count: 2;
+  column-gap: var(--space-3);
+}
+
+#adminDashboard > div {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: var(--space-3);
+}
+
+.endOfYearPromotionContainer {
+  column-span: all;
+  margin-bottom: 0;
+}
+
+/* --- revenue stats --- */
 
 .totalRevenueContainer {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .totalRevenueContainer span {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--text-muted);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.totalRevenueContainer > div {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--clay-dark);
+  margin-bottom: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px dashed var(--line);
+}
+
+.totalRevenueContainer > div:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* --- pending fees list --- */
+
+.pendingFeesContainer {
+  min-height: 120px;
+}
+
+.pendingFeesContainer::before {
+  content: "Pending Fees";
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.totalRevenueContainer::before {
+  content: "Collections";
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+#studentsPendingFeesList li {
+  font-size: 0.85rem;
+  padding: 9px 10px;
   margin-bottom: 6px;
+  border-radius: var(--radius-sm);
+  background-color: var(--moss-tint);
+  border-left: 3px solid var(--moss);
 }
 
-.totalRevenueContainer div {
-  padding: 20px;
-  border-radius: var(--radius);
-  font-size: 1.75rem;
-  font-weight: 800;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid;
+/* --- forms: add parent / add student / assign fees --- */
+
+.addParents,
+.addStudents,
+.assignMonthAndFees {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-/* Colored Admin Cards */
-#todayCollection {
-  background-color: #ecfdf5; /* Soft Mint Green */
-  color: #047857;
-  border-color: #a7f3d0;
+.addParents label,
+.addStudents label,
+.assignMonthAndFees label {
+  margin-bottom: 0;
 }
 
-#monthlyCollection {
-  background-color: #eff6ff; /* Soft Blue */
-  color: #1d4ed8;
-  border-color: #bfdbfe;
+.addParents button,
+.addStudents button,
+.assignMonthAndFees button {
+  width: 100%;
+  background-color: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-#yearlyCollection {
-  background-color: #faf5ff; /* Soft Purple */
-  color: #7e22ce;
-  border-color: #e9d5ff;
+.addParents button:hover,
+.addStudents button:hover,
+.assignMonthAndFees button:hover {
+  background-color: var(--clay-dark);
 }
 
-/* =========================================
-   RESPONSIVE DESIGN (MOBILE)
-   ========================================= */
-@media (max-width: 480px) {
-  section {
-    padding: 20px;
+/* the source labels read "Assign Fees" / "Fees Month" — identical to the
+   input placeholders sitting right below them. Keep the original text for
+   screen readers, swap in clearer on-screen copy so the two lines don't
+   just repeat each other. */
+.assignMonthAndFees label:nth-of-type(1) {
+  font-size: 0;
+}
+
+.assignMonthAndFees label:nth-of-type(1)::before {
+  content: "Fee Amount (Rs)";
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.assignMonthAndFees label:nth-of-type(2) {
+  font-size: 0;
+}
+
+.assignMonthAndFees label:nth-of-type(2)::before {
+  content: "For Month";
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+/* --- promotion / modal --- */
+
+.endOfYearPromotionContainer {
+  position: relative;
+}
+
+#showModalDialoge {
+  width: 100%;
+  background-color: var(--clay-tint);
+  color: var(--clay-dark);
+  border: 1px dashed var(--clay);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#showModalDialoge:hover {
+  background-color: var(--clay);
+  color: #fff;
+  border-style: solid;
+}
+
+/* the JS toggles this element with element.style.display = "block" / "none",
+   which as an inline style always wins over a plain CSS "display: flex"
+   rule — so the centering never actually applied. The [style*="block"]
+   selector only matches while the inline style says "block", letting us
+   force flex centering just for that state without touching the JS. */
+#modalContainer {
+  position: fixed;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+  padding: var(--space-3);
+}
+
+#modalContainer[style*="block"] {
+  display: flex !important;
+}
+
+#modalContainer > ul,
+#modalContainer > #modalStudentList {
+  background-color: var(--paper-raised);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  max-width: 420px;
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+#modalStudentList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+#modalStudentList li:last-child {
+  border-bottom: none;
+}
+
+#modalStudentList input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--clay);
+  cursor: pointer;
+}
+
+#promotionButton {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 0;
+  background-color: var(--moss);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE
+   ============================================ */
+
+@media (max-width: 860px) {
+  #adminDashboard {
+    column-count: 1;
   }
-  
+}
+
+@media (max-width: 700px) {
+  #parentDashboard {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "dropA"
+      "dropB"
+      "balance"
+      "payment"
+      "history";
+  }
+}
+
+@media (max-width: 560px) {
+  header {
+    padding: var(--space-2) var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  header::before {
+    width: 100%;
+    margin-bottom: var(--space-1);
+  }
+
+  main {
+    padding: var(--space-3);
+  }
+
+  #parentDashboard > div,
+  #adminDashboard > div {
+    padding: var(--space-2);
+  }
+
   .amountContainer {
     flex-direction: column;
   }
-  
-  #amountButton {
-    width: 100%;
+
+  #chunkContainer {
+    flex-wrap: wrap;
   }
 
-  .parentDashboardContainer label {
-    width: 100%;
-    margin-bottom: 4px;
+  #chunkContainer button {
+    flex: 1 1 30%;
   }
-  
-  .parentDashboardContainer span {
-    display: block;
-    margin-bottom: 12px;
-  }
-  
-  .parentDashboardContainer br {
-    display: none;
+
+  .addParents,
+  .addStudents,
+  .assignMonthAndFees {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
