@@ -1,9 +1,3 @@
-/* ============================================
-   FEE EASE KASHMIR — styles.css
-   Theme: Claude Dark (charcoal paper + terracotta ink)
-   Font: Consolas, fallback SF Pro Display / sans-serif
-   ============================================ */
-
 :root {
   /* Palette — dark */
   --paper: #1f1e1d;
@@ -431,6 +425,7 @@ ul {
 
 .addParents,
 .addStudents,
+.addClass,
 .assignMonthAndFees {
   display: flex;
   flex-direction: column;
@@ -445,6 +440,7 @@ ul {
 
 .addParents button,
 .addStudents button,
+.addClass button,
 .assignMonthAndFees button {
   width: 100%;
   background-color: var(--ink);

@@ -1,7 +1,6 @@
 // ============================================
 // SECTION 1: DOM SELECTIONS
 // ============================================
-
 // Parent Dashboard Elements
 const parentButton = document.getElementById("parentButton");
 const adminButton = document.getElementById("adminButton");
@@ -41,6 +40,8 @@ const showModalDialoge = document.getElementById("showModalDialoge");
 const modalContainer = document.getElementById("modalContainer");
 const modalStudentList = document.getElementById("modalStudentList");
 const promotionButton = document.getElementById("promotionButton");
+const assignClassInput = document.getElementById("assignClassInput");
+const addClassButton = document.getElementById("addClassButton");
 modalContainer.style.display = "none";
 // ============================================
 // SECTION 2: DATA ARRAYS
@@ -365,7 +366,9 @@ function addParentsFunction() {
 
 function addStudentFunction() {
   let newStudentName = addStudentsInput.value;
-  if (addStudentsInput.value === "") {
+  let assignClassValue = assignClassInput.value;
+
+  if (addStudentsInput.value === "" && assignClassInput.value === "") {
     alert("Invalid");
   } else {
     let studentNewDropdown = document.createElement("option");
@@ -377,11 +380,13 @@ function addStudentFunction() {
       studentName: newStudentName,
       studentId: studentNewDropdown.value,
       connectingId: selectedParentId,
+      class: assignClassValue,
     };
     StudentsArray.push(newStudentObject);
     saveData();
   }
   addStudentsInput.value = "";
+  assignClassInput.value = "";
 }
 
 function assignFeesFunction() {
@@ -417,9 +422,9 @@ function loadModalStudents() {
     modalStudentsListItems.appendChild(checkboxElements);
   });
 }
+
 function promotionFunction() {
   const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-
   allCheckboxes.forEach((item) => {
     if (item.checked) {
       StudentsArray.find((students) => {
@@ -434,7 +439,6 @@ function promotionFunction() {
   studentDropdown.innerHTML = "";
   filteringStudent();
 }
-promotionFunction();
 // ============================================
 // SECTION 7: EVENT LISTENERS
 // ============================================
