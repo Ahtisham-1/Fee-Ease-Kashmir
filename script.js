@@ -37,18 +37,22 @@ const addStudentsButton = document.getElementById("addStudentsButton");
 const assignFeesInput = document.getElementById("assignFeesInput");
 const assignMonthInput = document.getElementById("assignMonthInput");
 const addFeesMonthButton = document.getElementById("addFeesMonthButton");
-
+const showModalDialoge = document.getElementById("showModalDialoge");
+const modalContainer = document.getElementById("modalContainer");
+const modalStudentList = document.getElementById("modalStudentList");
+const promotionButton = document.getElementById("promotionButton");
+modalContainer.style.display = "none";
 // ============================================
 // SECTION 2: DATA ARRAYS
 // ============================================
 
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
-  { studentName: "Ahtisham", studentId: "S1", connectingId: "P1" },
-  { studentName: "Mehnan", studentId: "S2", connectingId: "P2" },
-  { studentName: "Anees", studentId: "S3", connectingId: "P3" },
-  { studentName: "Sahil", studentId: "S4", connectingId: "P4" },
-  { studentName: "Xahid", studentId: "S5", connectingId: "P5" },
-  { studentName: "Moomin", studentId: "S6", connectingId: "P5" },
+  { studentName: "Ahtisham", studentId: "S1", connectingId: "P1", class: 1 },
+  { studentName: "Mehnan", studentId: "S2", connectingId: "P2", class: 1 },
+  { studentName: "Anees", studentId: "S3", connectingId: "P3", class: 1 },
+  { studentName: "Sahil", studentId: "S4", connectingId: "P4", class: 1 },
+  { studentName: "Xahid", studentId: "S5", connectingId: "P5", class: 1 },
+  { studentName: "Moomin", studentId: "S6", connectingId: "P5", class: 1 },
 ];
 let ParentsArray = JSON.parse(localStorage.getItem("storedParentsArray")) || [
   { parentName: "Quyoom", parentId: "P1" },
@@ -175,7 +179,7 @@ function filteringStudent() {
   StudentsArray.filter((student) => {
     if (selectedParentId === student.connectingId) {
       const studentNameOption = document.createElement("option");
-      studentNameOption.textContent = student.studentName;
+      studentNameOption.textContent = ` ${student.studentName} (Class ${student.class})`;
       studentNameOption.value = student.studentId;
       studentDropdown.appendChild(studentNameOption);
     }
@@ -399,6 +403,21 @@ function assignFeesFunction() {
   showMonthlyBreakdown();
 }
 
+function loadModalStudents() {
+  modalStudentList.textContent = "";
+  StudentsArray.forEach((student) => {
+    let modalStudentsListItems = document.createElement("li");
+    modalStudentsListItems.textContent = `${student.studentName} Class:${student.class} `;
+    modalStudentsListItems.value = student.studentId;
+    modalStudentList.appendChild(modalStudentsListItems);
+
+    let checkboxElements = document.createElement("input");
+    checkboxElements.type = "checkbox";
+    checkboxElements.value = student.studentId;
+    modalStudentsListItems.appendChild(checkboxElements);
+  });
+}
+
 // ============================================
 // SECTION 7: EVENT LISTENERS
 // ============================================
@@ -446,6 +465,16 @@ adminButton.addEventListener("click", function () {
   adminDashboard.classList.remove("hidden");
   calculateCollections();
   studentsRemainingFees();
+});
+
+showModalDialoge.addEventListener("click", function () {
+  modalContainer.style.display = "block";
+  loadModalStudents();
+});
+
+promotionButton.addEventListener("click", function () {
+  promotionFunction();
+  modalContainer.style.display = "none";
 });
 
 // ============================================

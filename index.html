@@ -88,19 +88,29 @@
           <button id="addParentButton">Add</button>
         </div>
         <div class="addStudents">
-          <label for="text">Add New Parent:</label>
+          <label for="text">Add New Student:</label>
           <input type="text" id="addStudentsInput" />
           <button id="addStudentsButton">Add</button>
         </div>
 
         <div class="assignMonthAndFees">
           <label for="number">Assign Fees</label>
-          <input type="number" placeholder="Assign Fees" id="assignFeesInput"/>
+          <input type="number" placeholder="Assign Fees" id="assignFeesInput" />
 
           <label for="text">Fees Month</label>
           <input type="text" placeholder="Fees Month" id="assignMonthInput" />
 
           <button id="addFeesMonthButton">Add Fees and Month</button>
+        </div>
+
+        <div class="endOfYearPromotionContainer">
+          <div id="modalContainer">
+            <ul id="modalStudentList"></ul>
+            <button id="promotionButton">Promote</button>
+          </div>
+          <button id="showModalDialoge">
+            Promote Students To Next Class
+          </button>
         </div>
       </section>
     </main>
