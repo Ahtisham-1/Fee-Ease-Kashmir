@@ -417,7 +417,24 @@ function loadModalStudents() {
     modalStudentsListItems.appendChild(checkboxElements);
   });
 }
+function promotionFunction() {
+  const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 
+  allCheckboxes.forEach((item) => {
+    if (item.checked) {
+      StudentsArray.find((students) => {
+        if (students.studentId === item.value) {
+          let classCounter = students.class + 1;
+          students.class = classCounter;
+        }
+      });
+    }
+  });
+  saveData();
+  studentDropdown.innerHTML = "";
+  filteringStudent();
+}
+promotionFunction();
 // ============================================
 // SECTION 7: EVENT LISTENERS
 // ============================================
