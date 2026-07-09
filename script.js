@@ -1,3 +1,10 @@
+import { saveData } from "./saveData.js";
+import {
+  StudentsArray,
+  ParentsArray,
+  FeesArray,
+  TransactionArray,
+} from "./data.js";
 // ============================================
 // SECTION 1: DOM SELECTIONS
 // ============================================
@@ -43,92 +50,6 @@ const promotionButton = document.getElementById("promotionButton");
 const assignClassInput = document.getElementById("assignClassInput");
 const addClassButton = document.getElementById("addClassButton");
 modalContainer.style.display = "none";
-// ============================================
-// SECTION 2: DATA ARRAYS
-// ============================================
-
-let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
-  { studentName: "Ahtisham", studentId: "S1", connectingId: "P1", class: 1 },
-  { studentName: "Mehnan", studentId: "S2", connectingId: "P2", class: 1 },
-  { studentName: "Anees", studentId: "S3", connectingId: "P3", class: 1 },
-  { studentName: "Sahil", studentId: "S4", connectingId: "P4", class: 1 },
-  { studentName: "Xahid", studentId: "S5", connectingId: "P5", class: 1 },
-  { studentName: "Moomin", studentId: "S6", connectingId: "P5", class: 1 },
-];
-let ParentsArray = JSON.parse(localStorage.getItem("storedParentsArray")) || [
-  { parentName: "Quyoom", parentId: "P1" },
-  { parentName: "Mukhtar", parentId: "P2" },
-  { parentName: "Maqbool", parentId: "P3" },
-  { parentName: "Rafiq", parentId: "P4" },
-  { parentName: "Akbar", parentId: "P5" },
-];
-let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
-  {
-    studentFeesConnectingID: "S1",
-    fees: 1500,
-    month: "June",
-    feesType: "Tution",
-    feesId: "F1",
-  },
-  {
-    studentFeesConnectingID: "S1",
-    fees: 1500,
-    month: "July",
-    feesType: "Tution",
-    feesId: "F7",
-  },
-  {
-    studentFeesConnectingID: "S2",
-    fees: 2000,
-    month: "June",
-    feesType: "Tution",
-    feesId: "F2",
-  },
-  {
-    studentFeesConnectingID: "S2",
-    fees: 2000,
-    month: "July",
-    feesType: "Tution",
-    feesId: "F8",
-  },
-  {
-    studentFeesConnectingID: "S3",
-    fees: 3000,
-    month: "June",
-    feesType: "Tution",
-    feesId: "F3",
-  },
-  {
-    studentFeesConnectingID: "S3",
-    fees: 3000,
-    month: "July",
-    feesType: "Tution",
-    feesId: "F9",
-  },
-  {
-    studentFeesConnectingID: "S4",
-    fees: 4000,
-    month: "June",
-    feesType: "Tution",
-    feesId: "F4",
-  },
-  {
-    studentFeesConnectingID: "S5",
-    fees: 5000,
-    month: "June",
-    feesType: "Tution",
-    feesId: "F5",
-  },
-  {
-    studentFeesConnectingID: "S6",
-    fees: 6000,
-    month: "June",
-    feesType: "Tution",
-    feesId: "F6",
-  },
-];
-let TransactionArray =
-  JSON.parse(localStorage.getItem("storedTransactionArray")) || [];
 
 // ============================================
 // SECTION 3: GLOBAL STATE VARIABLES
@@ -140,17 +61,6 @@ let selectedStudentId = "S1";
 // ============================================
 // SECTION 4: UTILITY FUNCTIONS
 // ============================================
-
-//This function stores the data into local storage and stringifies them
-function saveData() {
-  localStorage.setItem("storedStudentsArray", JSON.stringify(StudentsArray));
-  localStorage.setItem("storedParentsArray", JSON.stringify(ParentsArray));
-  localStorage.setItem("storedFeesArray", JSON.stringify(FeesArray));
-  localStorage.setItem(
-    "storedTransactionArray",
-    JSON.stringify(TransactionArray),
-  );
-}
 
 // ============================================
 // SECTION 5: PARENT DASHBOARD FUNCTIONS
@@ -283,7 +193,6 @@ showMonthlyBreakdown();
 // ============================================
 // SECTION 6: ADMIN DASHBOARD FUNCTIONS
 // ============================================
-//
 function calculateCollections() {
   let todaySum = 0;
   let monthlySum = 0;
@@ -366,7 +275,7 @@ function addParentsFunction() {
 
 function addStudentFunction() {
   let newStudentName = addStudentsInput.value;
-  let assignClassValue = assignClassInput.value;
+  let assignClassValue = Number(assignClassInput.value);
 
   if (addStudentsInput.value === "" && assignClassInput.value === "") {
     alert("Invalid");
@@ -463,10 +372,8 @@ chunkContainer.addEventListener("click", function (e) {
   }
 });
 
-addParentButton.addEventListener("click", function () {
-  addParentsFunction();
-});
 addStudentsButton.addEventListener("click", function () {
+  addParentsFunction();
   addStudentFunction();
 });
 
