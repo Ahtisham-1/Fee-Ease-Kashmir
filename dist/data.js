@@ -1,9 +1,6 @@
-"use strict";
 // ============================================
 // SECTION 2: DATA ARRAYS
 // ============================================
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionArray = exports.FeesArray = exports.ParentsArray = exports.StudentsArray = void 0;
 let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
     { studentName: "Ahtisham", studentId: "S1", connectingId: "P1", class: 1 },
     { studentName: "Mehnan", studentId: "S2", connectingId: "P2", class: 1 },
@@ -12,7 +9,6 @@ let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
     { studentName: "Xahid", studentId: "S5", connectingId: "P5", class: 1 },
     { studentName: "Moomin", studentId: "S6", connectingId: "P5", class: 1 },
 ];
-exports.StudentsArray = StudentsArray;
 let ParentsArray = JSON.parse(localStorage.getItem("storedParentsArray")) || [
     { parentName: "Quyoom", parentId: "P1" },
     { parentName: "Mukhtar", parentId: "P2" },
@@ -20,7 +16,6 @@ let ParentsArray = JSON.parse(localStorage.getItem("storedParentsArray")) || [
     { parentName: "Rafiq", parentId: "P4" },
     { parentName: "Akbar", parentId: "P5" },
 ];
-exports.ParentsArray = ParentsArray;
 let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
     {
         studentFeesConnectingID: "S1",
@@ -86,7 +81,6 @@ let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
         feesId: "F6",
     },
 ];
-exports.FeesArray = FeesArray;
 let TransactionArray = JSON.parse(localStorage.getItem("storedTransactionArray")) || [];
-exports.TransactionArray = TransactionArray;
+export { StudentsArray, ParentsArray, FeesArray, TransactionArray };
 //# sourceMappingURL=data.js.map

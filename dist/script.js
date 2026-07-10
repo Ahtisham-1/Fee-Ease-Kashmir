@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const saveData_js_1 = require("./saveData.js");
-const data_js_1 = require("./data.js");
+import { saveData } from "./saveData.js";
+import { StudentsArray, ParentsArray, FeesArray, TransactionArray, } from "./data.js";
 // ============================================
 // SECTION 1: DOM SELECTIONS
 // ============================================
@@ -52,7 +50,7 @@ let selectedStudentId = "S1";
 // ============================================
 //This function loads the parents option on the page
 function loadStudents() {
-    data_js_1.ParentsArray.forEach((parent) => {
+    ParentsArray.forEach((parent) => {
         const parentNameOption = document.createElement("option");
         parentNameOption.textContent = parent.parentName;
         parentNameOption.value = parent.parentId;
@@ -69,7 +67,7 @@ function loadStudents() {
 }
 //This function filters the students whoose ids match with parentsId
 function filteringStudent() {
-    data_js_1.StudentsArray.filter((student) => {
+    StudentsArray.filter((student) => {
         if (selectedParentId === student.connectingId) {
             const studentNameOption = document.createElement("option");
             studentNameOption.textContent = ` ${student.studentName} (Class ${student.class})`;
@@ -83,12 +81,12 @@ function updateBalance() {
     let balance = 0;
     let paid = 0;
     totalFees.textContent = "";
-    data_js_1.FeesArray.filter((feeAmount) => {
+    FeesArray.filter((feeAmount) => {
         if (selectedStudentId === feeAmount.studentFeesConnectingID) {
             balance += feeAmount.fees;
         }
     });
-    data_js_1.TransactionArray.filter((studentTransaction) => {
+    TransactionArray.filter((studentTransaction) => {
         if (selectedStudentId === studentTransaction.studentId) {
             counter += studentTransaction.paidAmount;
         }
@@ -111,15 +109,15 @@ function makePayment() {
             paidAmount: inputPaymentAmount,
             paymentDate: Date.now(),
         };
-        data_js_1.TransactionArray.push(newTransactionObject);
-        (0, saveData_js_1.saveData)();
+        TransactionArray.push(newTransactionObject);
+        saveData();
         updateBalance();
     }
     amountInput.value = "";
 }
 function showTransactions() {
     paymentHistoryList.textContent = "";
-    data_js_1.TransactionArray.filter((studentsHistory) => {
+    TransactionArray.filter((studentsHistory) => {
         if (selectedStudentId === studentsHistory.studentId) {
             new Date(Number);
             const options = {
@@ -139,12 +137,12 @@ function showTransactions() {
 function showMonthlyBreakdown() {
     paidByMonth.textContent = "";
     let newCounter = 0;
-    data_js_1.TransactionArray.filter((studentTransaction) => {
+    TransactionArray.filter((studentTransaction) => {
         if (selectedStudentId === studentTransaction.studentId) {
             newCounter += studentTransaction.paidAmount;
         }
     });
-    data_js_1.FeesArray.filter((student) => {
+    FeesArray.filter((student) => {
         if (selectedStudentId === student.studentFeesConnectingID) {
             const newListElement = document.createElement("li");
             newListElement.textContent = `${student.month} ${student.fees} ${newCounter}`;
@@ -169,7 +167,7 @@ function calculateCollections() {
     let todaySum = 0;
     let monthlySum = 0;
     let yearlySum = 0;
-    data_js_1.TransactionArray.forEach((item) => {
+    TransactionArray.forEach((item) => {
         let txDate = new Date(item.paymentDate);
         let today = new Date();
         if (txDate.getDate() === today.getDate() &&
@@ -191,22 +189,22 @@ function calculateCollections() {
 }
 function studentsRemainingFees() {
     studentsPendingFeesList.innerHTML = "";
-    data_js_1.StudentsArray.forEach((student) => {
+    StudentsArray.forEach((student) => {
         let allStudentsFees = 0;
         let allStudentsPaid = 0;
-        data_js_1.TransactionArray.filter((studentPending) => {
+        TransactionArray.filter((studentPending) => {
             if (student.studentId === studentPending.studentId) {
                 allStudentsPaid += studentPending.paidAmount;
             }
         });
-        data_js_1.FeesArray.forEach((feesStudent) => {
+        FeesArray.forEach((feesStudent) => {
             if (feesStudent.studentFeesConnectingID === student.studentId) {
                 allStudentsFees += feesStudent.fees;
             }
         });
         let remaining = allStudentsFees - allStudentsPaid;
         if (remaining > 0) {
-            data_js_1.ParentsArray.find((userParentName) => {
+            ParentsArray.find((userParentName) => {
                 if (student.connectingId === userParentName.parentId) {
                     let newElement = document.createElement("li");
                     newElement.textContent = `${student.studentName} ${userParentName.parentName}  Pending:${remaining}`;
@@ -224,15 +222,15 @@ function addParentsFunction() {
     else {
         let parentNewDropdown = document.createElement("option");
         parentNewDropdown.textContent = newParentName;
-        parentNewDropdown.value = `P${data_js_1.ParentsArray.length + 1}`;
+        parentNewDropdown.value = `P${ParentsArray.length + 1}`;
         parentDropdown.appendChild(parentNewDropdown);
         let newParentObject = {
             parentName: newParentName,
             parentId: parentNewDropdown.value,
         };
         console.log(newParentObject.parentId);
-        data_js_1.ParentsArray.push(newParentObject);
-        (0, saveData_js_1.saveData)();
+        ParentsArray.push(newParentObject);
+        saveData();
         selectedParentId = newParentObject.parentId;
     }
     addParentInput.value = "";
@@ -246,7 +244,7 @@ function addStudentFunction() {
     else {
         let studentNewDropdown = document.createElement("option");
         studentNewDropdown.textContent = newStudentName;
-        studentNewDropdown.value = `S${data_js_1.StudentsArray.length + 1}`;
+        studentNewDropdown.value = `S${StudentsArray.length + 1}`;
         studentDropdown.appendChild(studentNewDropdown);
         let newStudentObject = {
             studentName: newStudentName,
@@ -254,8 +252,8 @@ function addStudentFunction() {
             connectingId: selectedParentId,
             class: assignClassValue,
         };
-        data_js_1.StudentsArray.push(newStudentObject);
-        (0, saveData_js_1.saveData)();
+        StudentsArray.push(newStudentObject);
+        saveData();
     }
     addStudentsInput.value = "";
     assignClassInput.value = "";
@@ -263,16 +261,16 @@ function addStudentFunction() {
 function assignFeesFunction() {
     let addingFees = Number(assignFeesInput.value);
     let addingMonth = assignMonthInput.value;
-    data_js_1.StudentsArray.forEach((student) => {
+    StudentsArray.forEach((student) => {
         let feesMonthObject = {
             studentFeesConnectingID: student.studentId,
             fees: addingFees,
             month: addingMonth,
             feesType: "Tution",
-            feesId: `F${data_js_1.FeesArray.length + 1}`,
+            feesId: `F${FeesArray.length + 1}`,
         };
-        data_js_1.FeesArray.push(feesMonthObject);
-        (0, saveData_js_1.saveData)();
+        FeesArray.push(feesMonthObject);
+        saveData();
     });
     assignFeesInput.value = "";
     assignMonthInput.value = "";
@@ -280,7 +278,7 @@ function assignFeesFunction() {
 }
 function loadModalStudents() {
     modalStudentList.textContent = "";
-    data_js_1.StudentsArray.forEach((student) => {
+    StudentsArray.forEach((student) => {
         let modalStudentsListItems = document.createElement("li");
         modalStudentsListItems.textContent = `${student.studentName} Class:${student.class} `;
         modalStudentsListItems.value = student.studentId;
@@ -295,7 +293,7 @@ function promotionFunction() {
     const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
     allCheckboxes.forEach((item) => {
         if (item.checked) {
-            data_js_1.StudentsArray.find((students) => {
+            StudentsArray.find((students) => {
                 if (students.studentId === item.value) {
                     let classCounter = students.class + 1;
                     students.class = classCounter;
@@ -303,7 +301,7 @@ function promotionFunction() {
             });
         }
     });
-    (0, saveData_js_1.saveData)();
+    saveData();
     studentDropdown.innerHTML = "";
     filteringStudent();
 }

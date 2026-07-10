@@ -2,8 +2,6 @@
 
 > A micro-payment fee management system built for private schools in Kashmir.
 
----
-
 ## The Problem
 
 Private schools in Kashmir collect fees in large monthly lump-sums — often between ₹3,000 and ₹5,000 at once. But most Kashmiri families do not earn a fixed monthly salary. Their income is daily, weekly, or seasonal — from agriculture, tourism, handicrafts, or local trade.
