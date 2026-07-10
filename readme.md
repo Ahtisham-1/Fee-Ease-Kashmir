@@ -1,62 +1,99 @@
-## Fee-Ease Kashmir
+# Fee-Ease Kashmir
 
-A micro-payment billing system for schools and parents in Kashmir.
+> A micro-payment fee management system built for private schools in Kashmir.
 
-## Description
+---
 
-Fee-Ease Kashmir is a web app that allows Kashmiri parents to pay their children's school fees directly from their phones — in small, manageable amounts — while giving school administrators a complete real-time view of the school's fee collection and outstanding balances.
+## The Problem
 
-## The Problem It Solves
+Private schools in Kashmir collect fees in large monthly lump-sums — often between ₹3,000 and ₹5,000 at once. But most Kashmiri families do not earn a fixed monthly salary. Their income is daily, weekly, or seasonal — from agriculture, tourism, handicrafts, or local trade.
 
-In Kashmir, parents struggle to pay their children's school fees on time — and it is not because they don't want to.
+Asking a father who earns ₹300 a day to produce ₹5,000 on the 10th of every month is a direct path to default. Schools suffer irregular cash flow, struggle to pay teachers on time, and resort to embarrassing students in class over unpaid fees.
 
-## The Parents' Burden
+---
 
-The majority of parents are farmers (zamindars). Every time fees are due, they have to leave their work and travel to the school to make a cash payment in person. The unpaid amounts pile up month after month, and by the time the school forces them to pay, the lump sum is so large that families genuinely don't know how to manage it.
+## The Solution
 
-## The School's Burden
+Fee-Ease Kashmir aligns the school's billing with the parent's actual cash flow.
 
-School administrations are still managing finances through physical paper ledgers in 2025. If a teacher needs to find out how much a specific student owes, they have to physically search through stacks of class-wise ledgers.
+Instead of one heavy payment, parents make **micro-payments (Qists)** — ₹100 on Monday, ₹200 on Wednesday, ₹150 on Friday. The app tracks every payment in real-time, applies them sequentially across months using FIFO logic, and shows parents exactly where they stand at any moment.
 
-Fee-Ease Kashmir solves both problems at once.
+No more guessing. No more embarrassment. No more defaults.
+
+---
 
 ## Features
 
-## Parent Portal
+### For Parents
+- **Live Balance Dashboard** — Total fees, total paid, and net balance remaining, updated after every payment
+- **Micro-Payment System** — Pay any amount at any time with instant validation
+- **Transaction History** — Full chronological list of all payments made
+- **Itemized Month-by-Month Ledger** — See exactly which months are Paid and which are Pending, with outstanding amounts per month
 
-1. Log in and instantly see all your children's profiles
-2. See the Total Fees, Total Paid, and exact Remaining Balance for each child
-3. Pay any amount, any time, from anywhere — Rs 200 today, Rs 300 next week, even Rs 10
-4. View a complete transaction history with exact dates and amounts
+### For School Admin
+- **Collections Dashboard** — Total money collected today, this month, and this year
+- **Defaulter List** — Every student with a pending balance, listed with their parent name and exact amount owed
+- **Parent Registration** — Add new parents with auto-generated IDs
+- **Student Registration** — Register new students linked to their parent, assigned to a class
+- **Fee Assignment** — Assign a new month's fees to all students in one click
+- **Academic Year Promotion Tool** — Bulk-promote students to the next class with selective unchecking for students repeating a year
 
-## Admin Portal
-
-5. Revenue Dashboard — Collections for today, this month, and this year
-6. Defaulter List — Every student with a pending balance and their parent's name
+---
 
 ## Tech Stack
 
-## Current Phase (Phase 1)
+| Layer | Technology |
+|-------|-----------|
+| Structure | HTML5 |
+| Styling | Vanilla CSS |
+| Logic | Vanilla JavaScript (ES6+) |
+| Modules | ES6 Modules (import/export) |
+| Storage | LocalStorage |
+| Type Safety | TypeScript (migration in progress) |
+| Deployment | Vercel |
 
-| Technology | Purpose |
-|------------|---------|
-| HTML | Structure |
-| CSS | Styling |
-| Vanilla JavaScript | All application logic |
-| LocalStorage | Client-side data persistence |
-
-## Coming in Future Phases
-
-TypeScript → React / Next.js → SQL Database → Production Deployment
+---
 
 ## Live Demo
 
-Note: This is a Phase 1 prototype. Data is stored in your browser only.
+[https://fee-ease-kashmir.vercel.app/](https://fee-ease-kashmir.vercel.app/)
 
-[View Live Demo → fee-ease-kashmir.vercel.app](https://fee-ease-kashmir.vercel.app/)
+---
 
-## GitHub Repository
+## Project Structure
 
-[github.com/Ahtisham-1/Fee-Ease-Kashmir](https://github.com/Ahtisham-1/Fee-Ease-Kashmir)
+```
+├── index.html          # Main HTML file
+├── style.css           # All styling
+├── data.js             # Data arrays (Students, Parents, Fees, Transactions)
+├── storage.js          # LocalStorage persistence layer
+├── script.js           # DOM logic, event listeners, dashboard functions
+└── tsconfig.json       # TypeScript compiler configuration
+```
 
-Built with purpose. More updates coming soon.
+---
+
+## The Business Case
+
+This is not a practice project. Kashmir's private school sector runs on paper registers and manual receipts. FeeEase digitizes this entirely and reduces default rates by enabling payment flexibility that matches how families actually earn.
+
+The pitch to a school principal is not "convenient for parents" — it is **financial survival for the school**: predictable daily cash flow instead of zero for three months and then a sudden burst.
+
+---
+
+## Roadmap
+
+- [x] Phase 1 — Vanilla JavaScript (Complete)
+- [ ] Phase 2 — TypeScript Migration (In Progress)
+- [ ] Phase 3 — React Rebuild
+- [ ] Phase 4 — Node.js + MongoDB Backend
+- [ ] Phase 5 — Payment Gateway Integration (Razorpay/UPI)
+- [ ] Phase 6 — Production Launch
+
+---
+
+## Author
+
+Built by a self-taught developer from Kashmir, solving a real problem in his own community.
+
+GitHub: [github.com/Ahtisham-1](https://github.com/Ahtisham-1)
