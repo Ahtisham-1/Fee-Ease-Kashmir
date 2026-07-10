@@ -1,0 +1,24 @@
+{
+  "name": "fee-ease-app",
+  "version": "1.0.0",
+  "description": "A micro-payment billing system for schools and parents in Kashmir.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahtisham-1/Fee-Ease-Kashmir.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ahtisham-1/Fee-Ease-Kashmir/issues"
+  },
+  "homepage": "https://github.com/Ahtisham-1/Fee-Ease-Kashmir#readme",
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
