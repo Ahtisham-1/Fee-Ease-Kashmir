@@ -13,12 +13,24 @@ const parentButton = document.getElementById("parentButton");
 const adminButton = document.getElementById("adminButton");
 const parentDashboard = document.getElementById("parentDashboard");
 const adminDashboard = document.getElementById("adminDashboard");
-const parentDropdown = document.getElementById("parentDropdown");
-const studentDropdown = document.getElementById("studentDropdown");
-const totalFees = document.getElementById("totalFees");
-const totalPaid = document.getElementById("totalPaid");
-const netBalanceLeft = document.getElementById("netBalanceLeft");
-const amountInput = document.getElementById("amountInput");
+
+const parentDropdown = document.getElementById(
+  "parentDropdown",
+)! as HTMLSelectElement;
+
+const studentDropdown = document.getElementById(
+  "studentDropdown",
+)! as HTMLSelectElement;
+
+const totalFees = document.getElementById("totalFees")! as HTMLSpanElement;
+
+const totalPaid = document.getElementById("totalPaid")! as HTMLSpanElement;
+
+const netBalanceLeft = document.getElementById(
+  "netBalanceLeft",
+)! as HTMLSpanElement;
+
+const amountInput = document.getElementById("amountInput")! as HTMLInputElement;
 const amountButton = document.getElementById("amountButton");
 const chunkAmountFive = document.getElementById("chunkAmountFive");
 const chunkAmountThousand = document.getElementById("chunkAmountThousand");
@@ -26,7 +38,9 @@ const chunkAmountFifteenHundred = document.getElementById(
   "chunkAmountFifteenHundred",
 );
 const chunkContainer = document.getElementById("chunkContainer");
-const paymentHistoryList = document.getElementById("paymentHistoryList");
+const paymentHistoryList = document.getElementById(
+  "paymentHistoryList",
+)! as HTMLUListElement;
 const paidByMonth = document.getElementById("paidByMonth");
 
 // Admin Dashboard Elements
@@ -73,7 +87,8 @@ function loadStudents() {
 
   parentDropdown.addEventListener("change", function (e) {
     studentDropdown.innerHTML = "";
-    selectedParentId = e.target.value;
+    const target = e.target as HTMLSelectElement;
+    selectedParentId = target.value;
     filteringStudent();
     selectedStudentId = studentDropdown.value;
     updateBalance();
@@ -109,9 +124,9 @@ function updateBalance() {
       counter += studentTransaction.paidAmount;
     }
   });
-  totalFees.textContent = balance;
-  netBalanceLeft.textContent = balance - counter;
-  totalPaid.textContent = counter;
+  totalFees.textContent = String(balance);
+  netBalanceLeft.textContent = String(balance - counter);
+  totalPaid.textContent = String(counter);
 }
 
 function makePayment() {
@@ -144,7 +159,7 @@ function showTransactions() {
 
   TransactionArray.filter((studentsHistory) => {
     if (selectedStudentId === studentsHistory.studentId) {
-      new Date(Number);
+      new Date();
       const options = {
         month: "short",
         day: "numeric",
@@ -153,7 +168,7 @@ function showTransactions() {
         hour12: false,
       };
       const paymentElement = document.createElement("li");
-      paymentElement.textContent = `${new Date(studentsHistory.paymentDate).toLocaleString("en-GB", options)} || Rs ${studentsHistory.paidAmount}`;
+      paymentElement.textContent = `${new Date(studentsHistory.paymentDate).toLocaleString("en-GB")} || Rs ${studentsHistory.paidAmount}`;
       paymentHistoryList.prepend(paymentElement);
     }
   });

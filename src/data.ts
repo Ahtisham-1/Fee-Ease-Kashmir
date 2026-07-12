@@ -2,7 +2,35 @@
 // SECTION 2: DATA ARRAYS
 // ============================================
 
-let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
+type Student = {
+  studentName: string;
+  studentId: string;
+  connectingId: string;
+  class: number;
+};
+
+type Parent = {
+  parentName: string;
+  parentId: string;
+};
+
+type Fee = {
+  studentFeesConnectingID: string;
+  fees: number;
+  month: string;
+  feesType: "Tution" | "Exam" | "Transport";
+  feesId: string;
+};
+
+type Transaction = {
+  studentId: string;
+  paidAmount: number;
+  paymentDate: number;
+};
+
+let StudentsArray: Student[] = JSON.parse(
+  localStorage.getItem("storedStudentsArray"),
+) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1", class: 1 },
   { studentName: "Mehnan", studentId: "S2", connectingId: "P2", class: 1 },
   { studentName: "Anees", studentId: "S3", connectingId: "P3", class: 1 },
@@ -10,14 +38,16 @@ let StudentsArray = JSON.parse(localStorage.getItem("storedStudentsArray")) || [
   { studentName: "Xahid", studentId: "S5", connectingId: "P5", class: 1 },
   { studentName: "Moomin", studentId: "S6", connectingId: "P5", class: 1 },
 ];
-let ParentsArray = JSON.parse(localStorage.getItem("storedParentsArray")) || [
+let ParentsArray: Parent[] = JSON.parse(
+  localStorage.getItem("storedParentsArray"),
+) || [
   { parentName: "Quyoom", parentId: "P1" },
   { parentName: "Mukhtar", parentId: "P2" },
   { parentName: "Maqbool", parentId: "P3" },
   { parentName: "Rafiq", parentId: "P4" },
   { parentName: "Akbar", parentId: "P5" },
 ];
-let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
+let FeesArray: Fee[] = JSON.parse(localStorage.getItem("storedFeesArray")) || [
   {
     studentFeesConnectingID: "S1",
     fees: 1500,
@@ -83,7 +113,7 @@ let FeesArray = JSON.parse(localStorage.getItem("storedFeesArray")) || [
   },
 ];
 
-let TransactionArray =
+let TransactionArray: Transaction[] =
   JSON.parse(localStorage.getItem("storedTransactionArray")) || [];
 
 export { StudentsArray, ParentsArray, FeesArray, TransactionArray };
