@@ -9,8 +9,8 @@ import {
 // SECTION 1: DOM SELECTIONS
 // ============================================
 // Parent Dashboard Elements
-const parentButton = document.getElementById("parentButton");
-const adminButton = document.getElementById("adminButton");
+const parentButton = document.getElementById("parentButton")! as HTMLButtonElement
+const adminButton = document.getElementById("adminButton")! as HTMLButtonElement
 const parentDashboard = document.getElementById("parentDashboard");
 const adminDashboard = document.getElementById("adminDashboard");
 
@@ -31,13 +31,13 @@ const netBalanceLeft = document.getElementById(
 )! as HTMLSpanElement;
 
 const amountInput = document.getElementById("amountInput")! as HTMLInputElement;
-const amountButton = document.getElementById("amountButton");
+const amountButton = document.getElementById("amountButton")! as HTMLButtonElement
 const chunkAmountFive = document.getElementById("chunkAmountFive");
 const chunkAmountThousand = document.getElementById("chunkAmountThousand");
 const chunkAmountFifteenHundred = document.getElementById(
   "chunkAmountFifteenHundred",
 );
-const chunkContainer = document.getElementById("chunkContainer");
+const chunkContainer = document.getElementById("chunkContainer")! as HTMLDivElement
 const paymentHistoryList = document.getElementById(
   "paymentHistoryList",
 )! as HTMLUListElement;
@@ -77,7 +77,7 @@ const showModalDialoge = document.getElementById(
 const modalContainer = document.getElementById(
   "modalContainer",
 )! as HTMLDivElement;
-const modalStudentList = document.getElementById("modalStudentList");
+const modalStudentList = document.getElementById("modalStudentList")! as HTMLUListElement
 const promotionButton = document.getElementById("promotionButton");
 const assignClassInput = document.getElementById(
   "assignClassInput",
@@ -353,7 +353,7 @@ function loadModalStudents() {
   StudentsArray.forEach((student) => {
     let modalStudentsListItems = document.createElement("li");
     modalStudentsListItems.textContent = `${student.studentName} Class:${student.class} `;
-    modalStudentsListItems.value = student.studentId;
+    modalStudentsListItems.value = Number(student.studentId);
     modalStudentList.appendChild(modalStudentsListItems);
 
     let checkboxElements = document.createElement("input");
