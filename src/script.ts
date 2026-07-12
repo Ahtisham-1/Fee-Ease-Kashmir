@@ -9,10 +9,18 @@ import {
 // SECTION 1: DOM SELECTIONS
 // ============================================
 // Parent Dashboard Elements
-const parentButton = document.getElementById("parentButton")! as HTMLButtonElement
-const adminButton = document.getElementById("adminButton")! as HTMLButtonElement
-const parentDashboard = document.getElementById("parentDashboard");
-const adminDashboard = document.getElementById("adminDashboard");
+const parentButton = document.getElementById(
+  "parentButton",
+)! as HTMLButtonElement;
+const adminButton = document.getElementById(
+  "adminButton",
+)! as HTMLButtonElement;
+const parentDashboard = document.getElementById(
+  "parentDashboard",
+)! as HTMLButtonElement;
+const adminDashboard = document.getElementById(
+  "adminDashboard",
+)! as HTMLTableSectionElement;
 
 const parentDropdown = document.getElementById(
   "parentDropdown",
@@ -31,13 +39,17 @@ const netBalanceLeft = document.getElementById(
 )! as HTMLSpanElement;
 
 const amountInput = document.getElementById("amountInput")! as HTMLInputElement;
-const amountButton = document.getElementById("amountButton")! as HTMLButtonElement
+const amountButton = document.getElementById(
+  "amountButton",
+)! as HTMLButtonElement;
 const chunkAmountFive = document.getElementById("chunkAmountFive");
 const chunkAmountThousand = document.getElementById("chunkAmountThousand");
 const chunkAmountFifteenHundred = document.getElementById(
   "chunkAmountFifteenHundred",
 );
-const chunkContainer = document.getElementById("chunkContainer")! as HTMLDivElement
+const chunkContainer = document.getElementById(
+  "chunkContainer",
+)! as HTMLDivElement;
 const paymentHistoryList = document.getElementById(
   "paymentHistoryList",
 )! as HTMLUListElement;
@@ -59,26 +71,36 @@ const studentsPendingFeesList = document.getElementById(
 const addParentInput = document.getElementById(
   "addParentInput",
 )! as HTMLInputElement;
-const addParentButton = document.getElementById("addParentButton");
+const addParentButton = document.getElementById(
+  "addParentButton",
+)! as HTMLButtonElement;
 const addStudentsInput = document.getElementById(
   "addStudentsInput",
 )! as HTMLInputElement;
-const addStudentsButton = document.getElementById("addStudentsButton");
+const addStudentsButton = document.getElementById(
+  "addStudentsButton",
+)! as HTMLButtonElement;
 const assignFeesInput = document.getElementById(
   "assignFeesInput",
 )! as HTMLInputElement;
 const assignMonthInput = document.getElementById(
   "assignMonthInput",
 )! as HTMLInputElement;
-const addFeesMonthButton = document.getElementById("addFeesMonthButton");
+const addFeesMonthButton = document.getElementById(
+  "addFeesMonthButton",
+)! as HTMLButtonElement;
 const showModalDialoge = document.getElementById(
   "showModalDialoge",
 )! as HTMLButtonElement;
 const modalContainer = document.getElementById(
   "modalContainer",
 )! as HTMLDivElement;
-const modalStudentList = document.getElementById("modalStudentList")! as HTMLUListElement
-const promotionButton = document.getElementById("promotionButton");
+const modalStudentList = document.getElementById(
+  "modalStudentList",
+)! as HTMLUListElement;
+const promotionButton = document.getElementById(
+  "promotionButton",
+)! as HTMLButtonElement;
 const assignClassInput = document.getElementById(
   "assignClassInput",
 )! as HTMLInputElement;
