@@ -41,27 +41,47 @@ const chunkContainer = document.getElementById("chunkContainer");
 const paymentHistoryList = document.getElementById(
   "paymentHistoryList",
 )! as HTMLUListElement;
-const paidByMonth = document.getElementById("paidByMonth");
+const paidByMonth = document.getElementById("paidByMonth") as HTMLDivElement;
 
 // Admin Dashboard Elements
-const todayCollection = document.getElementById("todayCollection");
-const monthlyCollection = document.getElementById("monthlyCollection");
-const yearlyCollection = document.getElementById("yearlyCollection");
+const todayCollection = document.getElementById(
+  "todayCollection",
+)! as HTMLDivElement;
+const monthlyCollection = document.getElementById(
+  "monthlyCollection",
+)! as HTMLDivElement;
+const yearlyCollection = document.getElementById(
+  "yearlyCollection",
+)! as HTMLDivElement;
 const studentsPendingFeesList = document.getElementById(
   "studentsPendingFeesList",
-);
-const addParentInput = document.getElementById("addParentInput");
+)! as HTMLDivElement;
+const addParentInput = document.getElementById(
+  "addParentInput",
+)! as HTMLInputElement;
 const addParentButton = document.getElementById("addParentButton");
-const addStudentsInput = document.getElementById("addStudentsInput");
+const addStudentsInput = document.getElementById(
+  "addStudentsInput",
+)! as HTMLInputElement;
 const addStudentsButton = document.getElementById("addStudentsButton");
-const assignFeesInput = document.getElementById("assignFeesInput");
-const assignMonthInput = document.getElementById("assignMonthInput");
+const assignFeesInput = document.getElementById(
+  "assignFeesInput",
+)! as HTMLInputElement;
+const assignMonthInput = document.getElementById(
+  "assignMonthInput",
+)! as HTMLInputElement;
 const addFeesMonthButton = document.getElementById("addFeesMonthButton");
-const showModalDialoge = document.getElementById("showModalDialoge");
-const modalContainer = document.getElementById("modalContainer");
+const showModalDialoge = document.getElementById(
+  "showModalDialoge",
+)! as HTMLButtonElement;
+const modalContainer = document.getElementById(
+  "modalContainer",
+)! as HTMLDivElement;
 const modalStudentList = document.getElementById("modalStudentList");
 const promotionButton = document.getElementById("promotionButton");
-const assignClassInput = document.getElementById("assignClassInput");
+const assignClassInput = document.getElementById(
+  "assignClassInput",
+)! as HTMLInputElement;
 const addClassButton = document.getElementById("addClassButton");
 modalContainer.style.display = "none";
 
@@ -228,9 +248,9 @@ function calculateCollections() {
       yearlySum += item.paidAmount;
     }
   });
-  todayCollection.textContent = todaySum;
-  monthlyCollection.textContent = monthlySum;
-  yearlyCollection.textContent = yearlySum;
+  todayCollection.textContent = String(todaySum);
+  monthlyCollection.textContent = String(monthlySum);
+  yearlyCollection.textContent = String(yearlySum);
 }
 
 function studentsRemainingFees() {
