@@ -42,18 +42,22 @@ const amountInput = document.getElementById("amountInput")! as HTMLInputElement;
 const amountButton = document.getElementById(
   "amountButton",
 )! as HTMLButtonElement;
-const chunkAmountFive = document.getElementById("chunkAmountFive");
-const chunkAmountThousand = document.getElementById("chunkAmountThousand");
+const chunkAmountFive = document.getElementById(
+  "chunkAmountFive",
+)! as HTMLButtonElement;
+const chunkAmountThousand = document.getElementById(
+  "chunkAmountThousand",
+)! as HTMLButtonElement;
 const chunkAmountFifteenHundred = document.getElementById(
   "chunkAmountFifteenHundred",
-);
+)! as HTMLButtonElement;
 const chunkContainer = document.getElementById(
   "chunkContainer",
 )! as HTMLDivElement;
 const paymentHistoryList = document.getElementById(
   "paymentHistoryList",
 )! as HTMLUListElement;
-const paidByMonth = document.getElementById("paidByMonth") as HTMLDivElement;
+const paidByMonth = document.getElementById("paidByMonth") as HTMLUListElement;
 
 // Admin Dashboard Elements
 const todayCollection = document.getElementById(
@@ -67,13 +71,11 @@ const yearlyCollection = document.getElementById(
 )! as HTMLDivElement;
 const studentsPendingFeesList = document.getElementById(
   "studentsPendingFeesList",
-)! as HTMLDivElement;
+)! as HTMLUListElement;;
 const addParentInput = document.getElementById(
   "addParentInput",
 )! as HTMLInputElement;
-const addParentButton = document.getElementById(
-  "addParentButton",
-)! as HTMLButtonElement;
+
 const addStudentsInput = document.getElementById(
   "addStudentsInput",
 )! as HTMLInputElement;
@@ -104,7 +106,7 @@ const promotionButton = document.getElementById(
 const assignClassInput = document.getElementById(
   "assignClassInput",
 )! as HTMLInputElement;
-const addClassButton = document.getElementById("addClassButton");
+
 modalContainer.style.display = "none";
 
 // ============================================
@@ -119,7 +121,7 @@ let selectedStudentId = "S1";
 // ============================================
 
 //This function loads the parents option on the page
-function loadStudents() {
+function loadStudents(): void {
   ParentsArray.forEach((parent) => {
     const parentNameOption = document.createElement("option");
     parentNameOption.textContent = parent.parentName;
@@ -139,7 +141,7 @@ function loadStudents() {
 }
 
 //This function filters the students whoose ids match with parentsId
-function filteringStudent() {
+function filteringStudent(): void {
   StudentsArray.filter((student) => {
     if (selectedParentId === student.connectingId) {
       const studentNameOption = document.createElement("option");
@@ -150,7 +152,7 @@ function filteringStudent() {
   });
 }
 
-function updateBalance() {
+function updateBalance(): void {
   let counter = 0;
   let balance = 0;
   let paid = 0;
@@ -171,7 +173,7 @@ function updateBalance() {
   totalPaid.textContent = String(counter);
 }
 
-function makePayment() {
+function makePayment(): void {
   let inputPaymentAmount = Number(amountInput.value);
   let remainBalance = Number(netBalanceLeft.textContent);
 
@@ -196,7 +198,7 @@ function makePayment() {
   amountInput.value = "";
 }
 
-function showTransactions() {
+function showTransactions(): void {
   paymentHistoryList.textContent = "";
 
   TransactionArray.filter((studentsHistory) => {
@@ -217,7 +219,7 @@ function showTransactions() {
   showMonthlyBreakdown();
 }
 
-function showMonthlyBreakdown() {
+function showMonthlyBreakdown(): void {
   paidByMonth.textContent = "";
   let newCounter = 0;
   TransactionArray.filter((studentTransaction) => {
@@ -246,7 +248,7 @@ showMonthlyBreakdown();
 // ============================================
 // SECTION 6: ADMIN DASHBOARD FUNCTIONS
 // ============================================
-function calculateCollections() {
+function calculateCollections(): void {
   let todaySum = 0;
   let monthlySum = 0;
   let yearlySum = 0;
@@ -275,7 +277,7 @@ function calculateCollections() {
   yearlyCollection.textContent = String(yearlySum);
 }
 
-function studentsRemainingFees() {
+function studentsRemainingFees(): void {
   studentsPendingFeesList.innerHTML = "";
 
   StudentsArray.forEach((student) => {
@@ -304,7 +306,7 @@ function studentsRemainingFees() {
   });
 }
 
-function addParentsFunction() {
+function addParentsFunction(): void {
   let newParentName = addParentInput.value;
   if (addParentInput.value === "") {
     alert("Invalid");
@@ -326,7 +328,7 @@ function addParentsFunction() {
   addParentInput.value = "";
 }
 
-function addStudentFunction() {
+function addStudentFunction(): void {
   let newStudentName = addStudentsInput.value;
   let assignClassValue = Number(assignClassInput.value);
 
@@ -357,9 +359,10 @@ type FeeMonth = {
   month: string;
   feesType: "Tution" | "Exam" | "Transport";
   feesId: string;
+  note?: string;
 };
 
-function assignFeesFunction() {
+function assignFeesFunction(): void {
   let addingFees = Number(assignFeesInput.value);
   let addingMonth = assignMonthInput.value;
   StudentsArray.forEach((student) => {
@@ -378,7 +381,7 @@ function assignFeesFunction() {
   showMonthlyBreakdown();
 }
 
-function loadModalStudents() {
+function loadModalStudents(): void {
   modalStudentList.textContent = "";
   StudentsArray.forEach((student) => {
     let modalStudentsListItems = document.createElement("li");
@@ -393,13 +396,13 @@ function loadModalStudents() {
   });
 }
 
-function promotionFunction() {
+function promotionFunction(): void {
   const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
   allCheckboxes.forEach((item) => {
     const checked = item as HTMLInputElement;
-    if (checked) {
+    if (checked.checked) {
       StudentsArray.find((students) => {
-        if (students.studentId === students.studentId) {
+        if (students.studentId === checked.value) {
           let classCounter = students.class + 1;
           students.class = classCounter;
         }
