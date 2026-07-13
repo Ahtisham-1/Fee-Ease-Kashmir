@@ -29,7 +29,7 @@ type Transaction = {
 };
 
 let StudentsArray: Student[] = JSON.parse(
-  localStorage.getItem("storedStudentsArray"),
+  localStorage.getItem("storedStudentsArray") ?? "null",
 ) || [
   { studentName: "Ahtisham", studentId: "S1", connectingId: "P1", class: 1 },
   { studentName: "Mehnan", studentId: "S2", connectingId: "P2", class: 1 },
@@ -39,7 +39,7 @@ let StudentsArray: Student[] = JSON.parse(
   { studentName: "Moomin", studentId: "S6", connectingId: "P5", class: 1 },
 ];
 let ParentsArray: Parent[] = JSON.parse(
-  localStorage.getItem("storedParentsArray"),
+  localStorage.getItem("storedParentsArray") ?? "null",
 ) || [
   { parentName: "Quyoom", parentId: "P1" },
   { parentName: "Mukhtar", parentId: "P2" },
@@ -47,7 +47,9 @@ let ParentsArray: Parent[] = JSON.parse(
   { parentName: "Rafiq", parentId: "P4" },
   { parentName: "Akbar", parentId: "P5" },
 ];
-let FeesArray: Fee[] = JSON.parse(localStorage.getItem("storedFeesArray")) || [
+let FeesArray: Fee[] = JSON.parse(
+  localStorage.getItem("storedFeesArray") ?? "null",
+) || [
   {
     studentFeesConnectingID: "S1",
     fees: 1500,
@@ -114,6 +116,6 @@ let FeesArray: Fee[] = JSON.parse(localStorage.getItem("storedFeesArray")) || [
 ];
 
 let TransactionArray: Transaction[] =
-  JSON.parse(localStorage.getItem("storedTransactionArray")) || [];
+  JSON.parse(localStorage.getItem("storedTransactionArray") ?? "null") || [];
 
 export { StudentsArray, ParentsArray, FeesArray, TransactionArray };

@@ -17,10 +17,10 @@ const adminButton = document.getElementById(
 )! as HTMLButtonElement;
 const parentDashboard = document.getElementById(
   "parentDashboard",
-)! as HTMLButtonElement;
+)! as HTMLElement;
 const adminDashboard = document.getElementById(
   "adminDashboard",
-)! as HTMLTableSectionElement;
+)! as HTMLElement;
 
 const parentDropdown = document.getElementById(
   "parentDropdown",
@@ -351,11 +351,19 @@ function addStudentFunction() {
   assignClassInput.value = "";
 }
 
+type FeeMonth = {
+  studentFeesConnectingID: string;
+  fees: number;
+  month: string;
+  feesType: "Tution" | "Exam" | "Transport";
+  feesId: string;
+};
+
 function assignFeesFunction() {
   let addingFees = Number(assignFeesInput.value);
   let addingMonth = assignMonthInput.value;
   StudentsArray.forEach((student) => {
-    let feesMonthObject = {
+    let feesMonthObject: FeeMonth = {
       studentFeesConnectingID: student.studentId,
       fees: addingFees,
       month: addingMonth,
@@ -388,9 +396,10 @@ function loadModalStudents() {
 function promotionFunction() {
   const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
   allCheckboxes.forEach((item) => {
-    if (item.checked) {
+    const checked = item as HTMLInputElement;
+    if (checked) {
       StudentsArray.find((students) => {
-        if (students.studentId === item.value) {
+        if (students.studentId === students.studentId) {
           let classCounter = students.class + 1;
           students.class = classCounter;
         }
@@ -411,14 +420,16 @@ amountButton.addEventListener("click", function () {
 });
 
 studentDropdown.addEventListener("change", function (e) {
-  selectedStudentId = e.target.value;
+  let selectedStudentTarget = e.target as HTMLSelectElement;
+  selectedStudentId = selectedStudentTarget.value;
   updateBalance();
   showTransactions();
 });
 
 chunkContainer.addEventListener("click", function (e) {
-  if (e.target.tagName === "BUTTON") {
-    let tagValue = e.target.textContent;
+  let buttonTarget = e.target as HTMLButtonElement;
+  if (buttonTarget) {
+    let tagValue = buttonTarget.value;
     amountInput.value = tagValue;
     makePayment();
     showTransactions();
