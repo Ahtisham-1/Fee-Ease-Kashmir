@@ -20,6 +20,7 @@ type Fee = {
   month: string;
   feesType: "Tution" | "Exam" | "Transport";
   feesId: string;
+  note?: string;
 };
 
 type Transaction = {
@@ -119,3 +120,4 @@ let TransactionArray: Transaction[] =
   JSON.parse(localStorage.getItem("storedTransactionArray") ?? "null") || [];
 
 export { StudentsArray, ParentsArray, FeesArray, TransactionArray };
+export type { Student, Parent, Fee, Transaction };

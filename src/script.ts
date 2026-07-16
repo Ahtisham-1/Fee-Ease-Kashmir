@@ -1,7 +1,11 @@
 import { saveData } from "./saveData.js";
 import {
-  StudentsArray,
+  type Student,
+  type Parent,
+  type Fee,
+  type Transaction,
   ParentsArray,
+  StudentsArray,
   FeesArray,
   TransactionArray,
 } from "./data.js";
@@ -21,23 +25,17 @@ const parentDashboard = document.getElementById(
 const adminDashboard = document.getElementById(
   "adminDashboard",
 )! as HTMLElement;
-
 const parentDropdown = document.getElementById(
   "parentDropdown",
 )! as HTMLSelectElement;
-
 const studentDropdown = document.getElementById(
   "studentDropdown",
 )! as HTMLSelectElement;
-
 const totalFees = document.getElementById("totalFees")! as HTMLSpanElement;
-
 const totalPaid = document.getElementById("totalPaid")! as HTMLSpanElement;
-
 const netBalanceLeft = document.getElementById(
   "netBalanceLeft",
 )! as HTMLSpanElement;
-
 const amountInput = document.getElementById("amountInput")! as HTMLInputElement;
 const amountButton = document.getElementById(
   "amountButton",
@@ -58,7 +56,6 @@ const paymentHistoryList = document.getElementById(
   "paymentHistoryList",
 )! as HTMLUListElement;
 const paidByMonth = document.getElementById("paidByMonth") as HTMLUListElement;
-
 // Admin Dashboard Elements
 const todayCollection = document.getElementById(
   "todayCollection",
@@ -71,7 +68,7 @@ const yearlyCollection = document.getElementById(
 )! as HTMLDivElement;
 const studentsPendingFeesList = document.getElementById(
   "studentsPendingFeesList",
-)! as HTMLUListElement;;
+)! as HTMLUListElement;
 const addParentInput = document.getElementById(
   "addParentInput",
 )! as HTMLInputElement;
@@ -182,11 +179,9 @@ function makePayment(): void {
     inputPaymentAmount <= 0 ||
     inputPaymentAmount > remainBalance
   ) {
-    window.alert(
-      "whatever you wrote is either not valid numbers or is too High than the fee amount you own",
-    );
+    window.alert("The Amount is either invalid or higher than the fee amount");
   } else {
-    let newTransactionObject = {
+    let newTransactionObject: Transaction = {
       studentId: selectedStudentId,
       paidAmount: inputPaymentAmount,
       paymentDate: Date.now(),
@@ -203,16 +198,15 @@ function showTransactions(): void {
 
   TransactionArray.filter((studentsHistory) => {
     if (selectedStudentId === studentsHistory.studentId) {
-      new Date();
-      const options = {
+      const options: Intl.DateTimeFormatOptions = {
         month: "short",
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-        hour12: false,
+        hour12: true,
       };
       const paymentElement = document.createElement("li");
-      paymentElement.textContent = `${new Date(studentsHistory.paymentDate).toLocaleString("en-GB")} || Rs ${studentsHistory.paidAmount}`;
+      paymentElement.textContent = `${new Date(studentsHistory.paymentDate).toLocaleString("en-GB", options)} || Rs ${studentsHistory.paidAmount}`;
       paymentHistoryList.prepend(paymentElement);
     }
   });
@@ -227,6 +221,7 @@ function showMonthlyBreakdown(): void {
       newCounter += studentTransaction.paidAmount;
     }
   });
+
   FeesArray.filter((student) => {
     if (selectedStudentId === student.studentFeesConnectingID) {
       const newListElement = document.createElement("li");
@@ -316,7 +311,7 @@ function addParentsFunction(): void {
     parentNewDropdown.value = `P${ParentsArray.length + 1}`;
     parentDropdown.appendChild(parentNewDropdown);
 
-    let newParentObject = {
+    let newParentObject: Parent = {
       parentName: newParentName,
       parentId: parentNewDropdown.value,
     };
@@ -340,7 +335,7 @@ function addStudentFunction(): void {
     studentNewDropdown.value = `S${StudentsArray.length + 1}`;
     studentDropdown.appendChild(studentNewDropdown);
 
-    let newStudentObject = {
+    let newStudentObject: Student = {
       studentName: newStudentName,
       studentId: studentNewDropdown.value,
       connectingId: selectedParentId,
@@ -353,20 +348,11 @@ function addStudentFunction(): void {
   assignClassInput.value = "";
 }
 
-type FeeMonth = {
-  studentFeesConnectingID: string;
-  fees: number;
-  month: string;
-  feesType: "Tution" | "Exam" | "Transport";
-  feesId: string;
-  note?: string;
-};
-
 function assignFeesFunction(): void {
   let addingFees = Number(assignFeesInput.value);
   let addingMonth = assignMonthInput.value;
   StudentsArray.forEach((student) => {
-    let feesMonthObject: FeeMonth = {
+    let feesMonthObject: Fee = {
       studentFeesConnectingID: student.studentId,
       fees: addingFees,
       month: addingMonth,
